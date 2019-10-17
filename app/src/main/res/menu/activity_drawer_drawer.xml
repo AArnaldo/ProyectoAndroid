@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_charla"
+            android:icon="@drawable/ic_assignment_black_24dp"
+            android:title="@string/menu_charla" />
+        <item
+            android:id="@+id/nav_asistencia"
+            android:icon="@drawable/ic_spellcheck_black_24dp"
+            android:title="@string/menu_asistencia" />
+        <item
+            android:id="@+id/nav_expositor"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="@string/menu_expositor" />
+        <item
+            android:id="@+id/nav_productos"
+            android:icon="@drawable/ic_widgets_black_24dp"
+            android:title="@string/menu_productos" />
+    </group>
+
+    <item android:title="--------------------------------------------------------">
+        <menu>
+            <item
+                android:id="@+id/nav_salir"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:title="@string/menu_salir" />
+        </menu>
+    </item>
+
+</menu>

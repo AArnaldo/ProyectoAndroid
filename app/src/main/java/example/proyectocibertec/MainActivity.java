@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton ibtnLinkedIn, ibtnYouTube, ibtnInstagram;
+    private Button btnIngresar;
     private String Link;
 
     @Override
@@ -21,6 +23,16 @@ public class MainActivity extends AppCompatActivity {
         ibtnLinkedIn = findViewById(R.id.ibtn_LinkedIn);
         ibtnYouTube = findViewById(R.id.ibtn_YouTube);
         ibtnInstagram = findViewById(R.id.ibtn_Instagram);
+        btnIngresar = findViewById(R.id.btnIngresar);
+
+        btnIngresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DrawerActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void goLinkedIn(View view){
