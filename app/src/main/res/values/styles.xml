@@ -8,13 +8,50 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="NoActionBar" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <!--<style name="NoActionBar" parent="Theme.AppCompat.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>-->
 
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="StyleTextInputEditText">
+        <item name="android:singleLine">true</item>
+        <!--<item name="android:fontFamily">"@font/roboto_condensed_light"</item>-->
+        <item name="android:textColor">@color/colorGrisOscuro</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="StyleTextInputEditText_Multi">
+        <!--<item name="android:fontFamily">"@font/roboto_condensed_light"</item>-->
+        <item name="android:textColor">@color/colorGrisOscuro</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="StyleTextInputLayout"   parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="hintTextAppearance">@style/HintText</item>
+        <item name="errorTextAppearance">@style/ErrorText</item>
+        <item name="boxStrokeColor">@color/colorPrimaryDark</item>
+        <!--<item name="android:textColorHint">@color/colorAzulAcero</item>-->
+    </style>
+
+    <style name="HintText" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">17sp</item>
+        <!--       <item name="android:textColor">@color/colorAzulAcero</item>-->
+    </style>
+
+    <style name="ErrorText" parent="TextAppearance.Design.Error">
+        <item name="android:textSize">16sp</item>
+        <!-- <item name="android:textColor">#F50057</item>-->
+    </style>
 
 </resources>
