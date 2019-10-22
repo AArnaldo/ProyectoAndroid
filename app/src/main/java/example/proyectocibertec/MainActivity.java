@@ -6,12 +6,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton ibtnLinkedIn, ibtnYouTube, ibtnInstagram;
     private Button btnIngresar;
+    private EditText etUsuario, etPassword;
     private String Link;
 
     @Override
@@ -25,14 +28,36 @@ public class MainActivity extends AppCompatActivity {
         ibtnInstagram = findViewById(R.id.ibtn_Instagram);
         btnIngresar = findViewById(R.id.btnIngresar);
 
-        btnIngresar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, DrawerActivity.class);
-                startActivity(intent);
-            }
-        });
+        etUsuario = (EditText)findViewById(R.id.txt_Usuario);
+        etPassword = (EditText)findViewById(R.id.txt_Password);
+    }
 
+    public void Ingresar(View view){
+        String nombre = etUsuario.getText().toString();
+        String password = etPassword.getText().toString();
+
+        if (nombre.length() == 0){
+            Toast.makeText(this, "Ingrese el usuario", Toast.LENGTH_SHORT).show();
+        }
+        if (password.length() == 0){
+            Toast.makeText(this, "Ingrese la Contraseña", Toast.LENGTH_SHORT).show();
+        }
+
+        if (nombre.length()!= 0 && password.length() != 0){
+            Toast.makeText(this, "Registro en Proceso...", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, DrawerActivity.class);
+            startActivity(intent);
+
+            /*
+            btnIngresar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, DrawerActivity.class);
+                    startActivity(intent);
+                }
+            });
+            * */
+        }
     }
 
     private void goLinkedIn(View view){
@@ -41,7 +66,4 @@ public class MainActivity extends AppCompatActivity {
         i.setData(Uri.parse(URLLinkedInd));
         startActivity(i);
     }
-
-
-
 }
