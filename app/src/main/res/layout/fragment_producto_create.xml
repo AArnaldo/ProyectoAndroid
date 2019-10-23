@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NuevaCharlaActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_newProducto_Nombre"
+            style="@style/StyleTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_newProducto_Nombre"
+                style="@style/StyleTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre de Producto"
+                android:imeOptions="actionNext" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_newProducto_Descrip"
+            style="@style/StyleTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toTopOf="@+id/til_newProducto_Capacidad"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_newProducto_Nombre">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_newProducto_Descrip"
+                style="@style/StyleTextInputEditText_Multi"
+                android:layout_width="match_parent"
+                android:layout_height="126dp"
+                android:hint="Descripción"
+                android:inputType="textMultiLine"
+                android:lines="50"
+                android:maxLength="1000"
+                android:textAlignment="viewStart" />
+            android:imeOptions="actionNext" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_newProducto_Capacidad"
+            style="@style/StyleTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_newProducto_Descrip">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_newProducto_Capacidad"
+                style="@style/StyleTextInputEditText_Multi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Costo S/. "
+                android:imeOptions="actionNext"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <ImageButton
+            android:id="@+id/btnTomarFoto"
+            android:layout_width="165dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:background="#004164"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:src="@drawable/ic_photo_camera_black_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_newProducto_Capacidad" />
+
+        <ImageButton
+            android:id="@+id/btnSeleccionar"
+            android:layout_width="165dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:background="#004164"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:src="@drawable/ic_folder_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnTomarFoto"
+            app:layout_constraintTop_toBottomOf="@+id/til_newProducto_Capacidad" />
+
+        <ImageView
+            android:id="@+id/imgFoto"
+            android:layout_width="324dp"
+            android:layout_height="257dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnTomarFoto"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <ImageButton
+            android:id="@+id/btnCancelar"
+            android:layout_width="165dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="50dp"
+            android:background="#009AA6"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:src="@drawable/ic_keyboard_return_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgFoto" />
+
+        <ImageButton
+            android:id="@+id/btnGuardar"
+            android:layout_width="165dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="50dp"
+            android:background="#004164"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:src="@drawable/ic_save_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnCancelar"
+            app:layout_constraintTop_toBottomOf="@+id/imgFoto" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
+

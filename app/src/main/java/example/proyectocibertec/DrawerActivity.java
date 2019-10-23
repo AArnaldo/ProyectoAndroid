@@ -1,11 +1,7 @@
 package example.proyectocibertec;
 
+import android.net.Uri;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,7 +17,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 
-public class DrawerActivity extends AppCompatActivity {
+public class DrawerActivity extends AppCompatActivity
+        implements ProductoFragment.OnFragmentInteractionListener,
+        ProductoListFragment.OnFragmentInteractionListener,
+        ProductoCreateFragment.OnFragmentInteractionListener{
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -31,6 +30,7 @@ public class DrawerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_drawer);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        /*
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +39,7 @@ public class DrawerActivity extends AppCompatActivity {
                         .setAction("Nueva Charla", null).show();
             }
         });
+        */
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -65,5 +66,10 @@ public class DrawerActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
