@@ -61,15 +61,16 @@ public class ProductoCreateFragment extends Fragment {
     private TextInputEditText  tiet_newProducto_Nombre;
     private TextInputEditText  tiet_newProducto_Descrip;
     private TextInputEditText  tiet_newProducto_Capacidad;
+    private TextView txtId;
 
     private static final int RESQUEST_TOMAR_FOTO = 100;
     private static final int RESQUEST_PERMISO_CAMARA = 200;
     private static final int RESQUEST_CONFIGURACION = 300;
     private static final int RESQUEST_PERMISO_GALERIA = 400;
     private static final int RESQUEST_ABRIR_GALERIA = 500;
+    public TextView ID_FRAGMENT;
 
     private String rutaFoto = "";
-    private MediaController mediaController;
 
     private String mParam1;
     private String mParam2;
@@ -103,40 +104,55 @@ public class ProductoCreateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_producto_create, container, false);
-
-        tiet_newProducto_Nombre = vista.findViewById(R.id.tiet_newProducto_Nombre);
-        tiet_newProducto_Descrip = vista.findViewById(R.id.tiet_newProducto_Descrip);
-        tiet_newProducto_Capacidad = vista.findViewById(R.id.tiet_newProducto_Capacidad);
-
-        imgFoto = vista.findViewById(R.id.imgFoto);
-        btnTomarFoto = vista.findViewById(R.id.btnTomarFoto);
+        ID_FRAGMENT = (TextView) vista.findViewById(R.id.ID_FRAGMENT);
+        tiet_newProducto_Nombre = (TextInputEditText) vista.findViewById(R.id.tiet_newProducto_Nombre);
+        tiet_newProducto_Descrip = (TextInputEditText) vista.findViewById(R.id.tiet_newProducto_Descrip);
+        tiet_newProducto_Capacidad = (TextInputEditText) vista.findViewById(R.id.tiet_newProducto_Capacidad);
+        txtId = (TextView) vista.findViewById(R.id.txtId);
+        imgFoto = (ImageView) vista.findViewById(R.id.imgFoto);
+        ID_FRAGMENT.setText(String.valueOf(getArguments().getInt("ID_FRAGMENT")));
+        txtId.setText(getArguments().getString("lblId"));
+        tiet_newProducto_Nombre.setText(getArguments().getString("lblNombreProducto"));
+        tiet_newProducto_Descrip.setText(getArguments().getString("lblDescProducto"));
+        tiet_newProducto_Capacidad.setText(getArguments().getString("lblCosto"));
+        imgFoto.setImageResource(getArguments().getInt("imgFoto"));
+        btnTomarFoto = (ImageButton) vista.findViewById(R.id.btnTomarFoto);
         btnTomarFoto.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 abrirCamara();
             }
         });
-        btnSeleccionar = vista.findViewById(R.id.btnSeleccionar);
+        btnSeleccionar = (ImageButton) vista.findViewById(R.id.btnSeleccionar);
         btnSeleccionar.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 abrirGaleria();
             }
         });
-        btnCancelar = vista.findViewById(R.id.btnCancelar);
+        btnCancelar = (ImageButton) vista.findViewById(R.id.btnCancelar);
         btnCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
-                ProductoListFragment productoListFragment = new ProductoListFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.contenedor, productoListFragment);
-                fragmentTransaction.commit();
+                if (Integer.valueOf(ID_FRAGMENT.getText().toString()).intValue() == 1) {
+                    ProductoListFragment productoListFragment = new ProductoListFragment();
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.contenedor, productoListFragment);
+                    fragmentTransaction.commit();
+                } else if (Integer.valueOf(ID_FRAGMENT.getText().toString()).intValue() == 2) {
+                    ProductoDetalleFragment productoDetalleFragment = new ProductoDetalleFragment();
+                    FragmentTransaction fragmentTransaction2 = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction2.replace(R.id.contenedor, productoDetalleFragment);
+                    fragmentTransaction2.commit();
+                    Bundle data = new Bundle();
+                    data.putString("lblId", getArguments().getString("lblId"));
+                    data.putString("lblNombreProducto", getArguments().getString("lblNombreProducto"));
+                    data.putString("lblDescProducto", getArguments().getString("lblDescProducto"));
+                    data.putString("lblCosto", getArguments().getString("lblCosto"));
+                    data.putInt("imgFoto", getArguments().getInt("imgFoto"));
+                    productoDetalleFragment.setArguments(data);
+                }
             }
         });
-        btnGuardar = vista.findViewById(R.id.btnGuardar);
+        btnGuardar = (ImageButton) vista.findViewById(R.id.btnGuardar);
         btnGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 grabar();
             }
@@ -166,13 +182,24 @@ public class ProductoCreateFragment extends Fragment {
             return;
         }
 
-        ProductoFragment productoFragment = new ProductoFragment();
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.contenedor, productoFragment);
-        fragmentTransaction.commit();
-
-       Toast.makeText(getActivity(), "Se grabo con exito el producto", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new  AlertDialog.Builder(getContext());
+        builder.setMessage((CharSequence) "¿ Quiere guardar los cambios? ");
+        builder.setTitle((CharSequence) "Productos");
+        builder.setPositiveButton((CharSequence) "Si", (DialogInterface.OnClickListener) new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                ProductoFragment productoFragment = new ProductoFragment();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.contenedor, productoFragment);
+                fragmentTransaction.commit();
+                Toast.makeText(getActivity(), "Se guardo con exito el producto",Toast.LENGTH_SHORT ).show();
+            }
+        });
+        builder.setNegativeButton((CharSequence) "No", (DialogInterface.OnClickListener) new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.create().show();
     }
 
     private void abrirGaleria(){

@@ -77,7 +77,7 @@ public class ProductoListFragment extends Fragment {
 
         llenarLista();
 
-        ProductosAdapter adapter=new ProductosAdapter(listProductos);
+        ProductosAdapter adapter=new ProductosAdapter(listProductos, this);
         recyclerViewPosts.setAdapter(adapter);
 
 
@@ -85,11 +85,22 @@ public class ProductoListFragment extends Fragment {
         fbadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 ProductoCreateFragment productoCreateFragment = new ProductoCreateFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.contenedor, productoCreateFragment);
                 fragmentTransaction.commit();
+
+                Bundle data = new Bundle();
+                data.putInt("ID_FRAGMENT", 1);
+                data.putString("lblId", "0");
+                String str = BuildConfig.FLAVOR;
+                data.putString("lblNombreProducto", str);
+                data.putString("lblDescProducto", str);
+                data.putString("lblCosto", str);
+                data.putInt("imgFoto", 0);
+                productoCreateFragment.setArguments(data);
             }
         });
         return vista;
