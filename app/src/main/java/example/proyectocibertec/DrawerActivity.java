@@ -20,7 +20,10 @@ import android.view.Menu;
 public class DrawerActivity extends AppCompatActivity
         implements ProductoFragment.OnFragmentInteractionListener,
         ProductoListFragment.OnFragmentInteractionListener,
-        ProductoCreateFragment.OnFragmentInteractionListener{
+        ProductoCreateFragment.OnFragmentInteractionListener
+        ,CharlasFragment.OnFragmentInteractionListener
+        ,CharlaListFragment.OnFragmentInteractionListener
+{
 
     private AppBarConfiguration mAppBarConfiguration;
 
