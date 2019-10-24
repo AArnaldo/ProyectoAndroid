@@ -5,10 +5,18 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import example.proyectocibertec.adapter.CharlaAdapter;
+import example.proyectocibertec.clases.Charla;
 
 
 /**
@@ -20,6 +28,13 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class CharlaListFragment extends Fragment {
+
+    List<Charla> listCharla;
+    RecyclerView recyclerViewCharla;
+    CharlaAdapter charlaAdapter;
+
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -60,13 +75,25 @@ public class CharlaListFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        listCharla = new ArrayList<Charla>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_charla_list, container, false);
+        View vista= inflater.inflate(R.layout.fragment_charla_list, container, false);
+
+        //Llenando la lista de charla
+        llenarListaCharla();
+
+        recyclerViewCharla =(RecyclerView) vista.findViewById(R.id.rv_charlalist_charlas);
+        recyclerViewCharla.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        charlaAdapter = new CharlaAdapter(listCharla);
+        recyclerViewCharla.setAdapter(charlaAdapter);
+
+        return vista;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -106,5 +133,12 @@ public class CharlaListFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void llenarListaCharla() {
+        Charla charla1 = new Charla("Charla 1","Descripcion 1");
+        Charla charla2 = new Charla("Charla 2","Descripcion 2");
+        listCharla.add(charla1);
+        listCharla.add(charla2);
     }
 }

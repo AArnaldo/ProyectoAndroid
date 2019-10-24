@@ -130,4 +130,9 @@ public class Charla {
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
+
+    public Charla(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
 }
