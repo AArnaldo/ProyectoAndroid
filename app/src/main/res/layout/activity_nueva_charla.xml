@@ -1,54 +1,329 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NuevaCharlaActivity">
+    tools:context=".NuevaCharlaActivity"
+    >
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_newCharla_Nombre"
-        style="@style/StyleTextInputLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_newCharla_Nombre"
-            style="@style/StyleTextInputEditText"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nombre de Charla"
-            android:imeOptions="actionNext" />
+            android:layout_height="match_parent">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_newCharla_Nombre"
+                style="@style/StyleTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_newCharla_Descrip"
-        style="@style/StyleTextInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_newCharla_Nombre">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_newCharla_Nombre"
+                    style="@style/StyleTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombre de Charla"
+                    android:imeOptions="actionNext" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_newCharla_Descrip"
-            style="@style/StyleTextInputEditText_Multi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Descripción"
-            android:imeOptions="actionNext" />
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_newCharla_Descrip"
+                style="@style/StyleTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_Nombre">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_newCharla_Descrip"
+                    style="@style/StyleTextInputEditText_Multi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Descripción"
+                    android:imeOptions="actionNext" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_newCharla_TipoCharla"
+                style="@style/StyleTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_Descrip">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo Charla"/>
+
+                <Spinner
+                    android:id="@+id/tiet_newCharla_Tipo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_newCharla_BtnFechaInicio"
+                style="@style/StyleTextInputLayout"
+                android:layout_width="136dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/til_newCharla_FechaInicio"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_TipoCharla">
+
+                <Button
+                    android:id="@+id/btnFechaInicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="FECHA"></Button>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_newCharla_FechaInicio"
+                style="@style/StyleTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/til_newCharla_BtnFechaInicio"
+                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_TipoCharla">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_newCharla_FechaInicio"
+                    style="@style/StyleTextInputEditText_Multi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Fecha Inicio"
+                    android:enabled="false"
+                    android:imeOptions="actionNext" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_newCharla_BtnHoraInicio"
+                style="@style/StyleTextInputLayout"
+                android:layout_width="136dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/til_newCharla_HoraInicio"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_FechaInicio">
+
+                <Button
+                    android:id="@+id/btnHoraInicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hora"
+                    ></Button>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_newCharla_HoraInicio"
+                style="@style/StyleTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/til_newCharla_BtnFechaInicio"
+                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_FechaInicio">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_newCharla_HoraInicio"
+                    style="@style/StyleTextInputEditText_Multi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Hora Inicio"
+                    android:enabled="false"
+                    android:imeOptions="actionNext" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_newCharla_BtnFechaFin"
+                style="@style/StyleTextInputLayout"
+                android:layout_width="136dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/til_newCharla_FechaInicio"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_HoraInicio">
+
+                <Button
+                    android:id="@+id/btnFechaFin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="FECHA"></Button>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_newCharla_FechaFin"
+                style="@style/StyleTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/til_newCharla_BtnFechaInicio"
+                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_HoraInicio">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_newCharla_FechaFin"
+                    style="@style/StyleTextInputEditText_Multi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Fecha Fin"
+                    android:enabled="false"
+                    android:imeOptions="actionNext" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_newCharla_BtnHoraFin"
+                style="@style/StyleTextInputLayout"
+                android:layout_width="136dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/til_newCharla_HoraInicio"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_FechaFin">
+
+                <Button
+                    android:id="@+id/btnHoraFin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hora"
+                    ></Button>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_newCharla_HoraFin"
+                style="@style/StyleTextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/til_newCharla_BtnFechaInicio"
+                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_FechaFin">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_newCharla_HoraFin"
+                    style="@style/StyleTextInputEditText_Multi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Hora Fin"
+                    android:enabled="false"
+                    android:imeOptions="actionNext" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_newCharla_Capacidad"
+                style="@style/StyleTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_HoraFin">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_newCharla_Capacidad"
+                    style="@style/StyleTextInputEditText_Multi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Capacidad"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_newCharla_Observaciones"
+                style="@style/StyleTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_Capacidad">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_newCharla_Observaciones"
+                    style="@style/StyleTextInputEditText_Multi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Observaciones"
+                    android:imeOptions="actionNext"
+                    android:gravity="top|left"
+                    android:inputType="textMultiLine"
+                    android:overScrollMode="always"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:lines="4"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnSiguiente"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/button_rounded"
+                android:text="Siguiente"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_Observaciones" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+    </ScrollView>
+
+
+
+
+
+
+    <!--<com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_newCharla_Capacidad"
         style="@style/StyleTextInputLayout"
         android:layout_width="match_parent"
@@ -129,5 +404,6 @@
             android:hint="Longitud"
             android:imeOptions="actionNext" />
     </com.google.android.material.textfield.TextInputLayout>
+    -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

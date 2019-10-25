@@ -1,6 +1,7 @@
 package example.proyectocibertec;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +35,7 @@ public class CharlaListFragment extends Fragment {
     List<Charla> listCharla;
     RecyclerView recyclerViewCharla;
     CharlaAdapter charlaAdapter;
-
+    FloatingActionButton newCharla;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -77,6 +80,7 @@ public class CharlaListFragment extends Fragment {
         }
 
         listCharla = new ArrayList<Charla>();
+
     }
 
     @Override
@@ -92,6 +96,15 @@ public class CharlaListFragment extends Fragment {
         recyclerViewCharla.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         charlaAdapter = new CharlaAdapter(listCharla);
         recyclerViewCharla.setAdapter(charlaAdapter);
+
+        newCharla = (FloatingActionButton) vista.findViewById(R.id.fb_charlalist_add);
+        newCharla.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), NuevaCharlaActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return vista;
     }
