@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +15,12 @@ import java.util.List;
 import example.proyectocibertec.adapter.CharlaExpositorAdapter;
 import example.proyectocibertec.clases.Expositor;
 
-public class CharlaExpositoresActivity extends AppCompatActivity {
+public class CharlaExpositoresActivity extends AppCompatActivity implements View.OnClickListener {
 
     List<Expositor> listExpositor;
     RecyclerView recyclerViewCharlaExpositor;
     CharlaExpositorAdapter charlaExpositorAdapter;
+    Button btnAnterior, btnSiguiente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +28,7 @@ public class CharlaExpositoresActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charla_expositores);
 
-        setTitle("Expositores");
-
-        listExpositor = new ArrayList<Expositor>();
+        inicializarControles();
 
         //Llenando la lista de expositores
         llenarListaExpositor();
@@ -35,6 +37,17 @@ public class CharlaExpositoresActivity extends AppCompatActivity {
         recyclerViewCharlaExpositor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         charlaExpositorAdapter = new CharlaExpositorAdapter(listExpositor);
         recyclerViewCharlaExpositor.setAdapter(charlaExpositorAdapter);
+    }
+
+    private void inicializarControles() {
+        setTitle("Expositores");
+        listExpositor = new ArrayList<Expositor>();
+
+        btnAnterior = findViewById(R.id.btnAnteriorCharlaExpositores);
+        btnSiguiente = findViewById(R.id.btnSiguienteCharlaExpositores);
+
+        btnAnterior.setOnClickListener(this);
+        btnSiguiente.setOnClickListener(this);
     }
 
     private void llenarListaExpositor() {
@@ -48,5 +61,19 @@ public class CharlaExpositoresActivity extends AppCompatActivity {
         listExpositor.add(expositor3);
         listExpositor.add(expositor4);
         listExpositor.add(expositor5);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnAnteriorCharlaExpositores:
+                Intent intentAnt = new Intent(CharlaExpositoresActivity.this, NuevaCharlaActivity.class);
+                startActivity(intentAnt);
+                break;
+            case R.id.btnSiguienteCharlaExpositores:
+                Intent intentSig = new Intent(CharlaExpositoresActivity.this, CharlaProductoActivity.class);
+                startActivity(intentSig);
+                break;
+        }
     }
 }

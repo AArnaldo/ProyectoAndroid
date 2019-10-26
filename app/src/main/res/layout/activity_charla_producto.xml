@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CharlaExpositoresActivity">
+    tools:context=".CharlaProductoActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,21 +16,21 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/btnAgregarExpositor"
+                android:id="@+id/btnAgregarProducto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/button_rounded"
-                android:text="Agregar Expositor"
+                android:text="Agregar Producto"
                 android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerCharlaExpositores"
+                android:id="@+id/recyclerCharlaProductos"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_marginStart="8dp"
@@ -38,10 +38,10 @@
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAgregarExpositor" />
+                app:layout_constraintTop_toBottomOf="@+id/btnAgregarProducto" />
 
             <Button
-                android:id="@+id/btnAnteriorCharlaExpositores"
+                android:id="@+id/btnAnteriorCharlaProductos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -52,10 +52,10 @@
                 android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerCharlaExpositores" />
+                app:layout_constraintTop_toBottomOf="@+id/recyclerCharlaProductos" />
 
             <Button
-                android:id="@+id/btnSiguienteCharlaExpositores"
+                android:id="@+id/btnSiguienteCharlaProductos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -66,7 +66,7 @@
                 android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAnteriorCharlaExpositores" />
+                app:layout_constraintTop_toBottomOf="@+id/btnAnteriorCharlaProductos" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

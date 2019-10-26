@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CharlaExpositoresActivity">
+    tools:context=".CharlaMultimediaActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,32 +16,47 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/btnAgregarExpositor"
+                android:id="@+id/btnTomarFotoCharlaMultimedia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/button_rounded"
-                android:text="Agregar Expositor"
+                android:text="Tomar Foto"
                 android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerCharlaExpositores"
+            <Button
+                android:id="@+id/btnSeleccionarFotoCharlaMultimedia"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/button_rounded"
+                android:text="Seleccionar Foto"
+                android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAgregarExpositor" />
+                app:layout_constraintTop_toBottomOf="@+id/btnTomarFotoCharlaMultimedia" />
+
+            <ImageView
+                android:id="@+id/imgFotoCharlaMultimedia"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_person_black_24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnSeleccionarFotoCharlaMultimedia" />
 
             <Button
-                android:id="@+id/btnAnteriorCharlaExpositores"
+                android:id="@+id/btnAnteriorCharlaMultimedia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -52,10 +67,10 @@
                 android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerCharlaExpositores" />
+                app:layout_constraintTop_toBottomOf="@+id/imgFotoCharlaMultimedia" />
 
             <Button
-                android:id="@+id/btnSiguienteCharlaExpositores"
+                android:id="@+id/btnSiguienteCharlaMultimedia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -66,7 +81,8 @@
                 android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAnteriorCharlaExpositores" />
+                app:layout_constraintTop_toBottomOf="@+id/btnAnteriorCharlaMultimedia" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

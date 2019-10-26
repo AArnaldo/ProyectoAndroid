@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".CharlaExpositoresActivity"></activity>
+        <activity android:name=".CharlaUbicacionActivity"></activity>
+        <activity android:name=".CharlaMultimediaActivity" />
+        <activity android:name=".CharlaProductoActivity" />
+        <activity android:name=".CharlaExpositoresActivity" />
         <activity android:name=".NuevaCharlaActivity" />
         <activity
             android:name=".DrawerActivity"

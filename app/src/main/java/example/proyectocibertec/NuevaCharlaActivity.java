@@ -36,7 +36,7 @@ public class NuevaCharlaActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nueva_charla);
 
-        setTitle("Nueva Charla");
+        setTitle("Registro de Charla");
         
         inicializarControles();
 
