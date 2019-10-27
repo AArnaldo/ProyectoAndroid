@@ -1,43 +1,25 @@
 package example.proyectocibertec;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import example.proyectocibertec.adapter.CharlaAdapter;
-import example.proyectocibertec.clases.Charla;
-
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CharlaListFragment.OnFragmentInteractionListener} interface
+ * {@link CharlaDetalleFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CharlaListFragment#newInstance} factory method to
+ * Use the {@link CharlaDetalleFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CharlaListFragment extends Fragment {
-
-    List<Charla> listCharla;
-    RecyclerView recyclerViewCharla;
-    CharlaAdapter charlaAdapter;
-    FloatingActionButton newCharla;
-
-
+public class CharlaDetalleFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -47,9 +29,9 @@ public class CharlaListFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private CharlasFragment.OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
 
-    public CharlaListFragment() {
+    public CharlaDetalleFragment() {
         // Required empty public constructor
     }
 
@@ -59,11 +41,11 @@ public class CharlaListFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CharlaListFragment.
+     * @return A new instance of fragment CharlaDetalleFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CharlaListFragment newInstance(String param1, String param2) {
-        CharlaListFragment fragment = new CharlaListFragment();
+    public static CharlaDetalleFragment newInstance(String param1, String param2) {
+        CharlaDetalleFragment fragment = new CharlaDetalleFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,35 +60,13 @@ public class CharlaListFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        listCharla = new ArrayList<Charla>();
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vista= inflater.inflate(R.layout.fragment_charla_list, container, false);
-
-        //Llenando la lista de charla
-        llenarListaCharla();
-
-        recyclerViewCharla =(RecyclerView) vista.findViewById(R.id.rv_charlalist_charlas);
-        recyclerViewCharla.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        charlaAdapter = new CharlaAdapter(listCharla,this);
-        recyclerViewCharla.setAdapter(charlaAdapter);
-
-        newCharla = (FloatingActionButton) vista.findViewById(R.id.fb_charlalist_add);
-        newCharla.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), NuevaCharlaActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        return vista;
+        return inflater.inflate(R.layout.fragment_charla_detalle, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -119,8 +79,8 @@ public class CharlaListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof CharlasFragment.OnFragmentInteractionListener) {
-            mListener = (CharlasFragment.OnFragmentInteractionListener) context;
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -146,13 +106,5 @@ public class CharlaListFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    private void llenarListaCharla() {
-        listCharla.clear();
-        Charla charla1 = new Charla("Charla 1","Descripcion 1");
-        Charla charla2 = new Charla("Charla 2","Descripcion 2");
-        listCharla.add(charla1);
-        listCharla.add(charla2);
     }
 }

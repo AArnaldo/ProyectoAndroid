@@ -9,14 +9,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import example.proyectocibertec.adapter.CharlaAdapter;
-import example.proyectocibertec.clases.Charla;
 
 public class CharlasFragment extends Fragment {
 
@@ -40,7 +32,7 @@ public class CharlasFragment extends Fragment {
         CharlaListFragment charlaListFragment = new CharlaListFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.CharlasContainer, charlaListFragment);
+        fragmentTransaction.replace(R.id.charlascontainer, charlaListFragment);
         fragmentTransaction.commit();
 
         return vista;

@@ -190,49 +190,6 @@ public class UsuarioActivity extends AppCompatActivity {
                 .into(iv_usuario_foto);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    Bitmap rotarSiSeRequiere(Bitmap bitmap,String pRuta){
-        Bitmap bmpRotado = null;
-        InputStream in = null;
-        try {
-            in = this.getContentResolver().openInputStream(Uri.fromFile(new File(pRuta)));
-            ExifInterface exifInterface = new ExifInterface(in);
-            int rotation = 0;
-            int orientatio = exifInterface.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_NORMAL
-            );
-            switch (orientatio){
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    rotation = 90;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    rotation = 180;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    rotation = 270;
-                    break;
-            }
-
-            Matrix matrix = new Matrix();
-            matrix.postRotate(rotation);
-            bmpRotado = Bitmap.createBitmap(bitmap, 0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }finally {
-            if (in != null){
-                try {
-                    in.close();
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
-            }
-        }
-        return bmpRotado;
-    }
 
     private void solicitarPermisosCamara()
     {
