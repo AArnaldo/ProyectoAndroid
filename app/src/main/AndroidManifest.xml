@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!--    Michael-->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".CharlaUbicacionActivity"></activity>
+        <activity android:name=".UsuarioActivity"></activity>
+        <activity android:name=".CharlaUbicacionActivity" />
         <activity android:name=".CharlaMultimediaActivity" />
         <activity android:name=".CharlaProductoActivity" />
         <activity android:name=".CharlaExpositoresActivity" />

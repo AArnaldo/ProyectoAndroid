@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:id="@+id/lblId"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/imgFoto"
+            android:layout_width="240dp"
+            android:layout_height="191dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/lblNombreExpositor"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:text="NombreExpositor"
+            android:textColor="#ff004164"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgFoto" />
+
+        <TextView
+            android:id="@+id/lblDescripExpositor"
+            android:layout_width="363dp"
+            android:layout_height="88dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:text="DescripExpositor"
+            android:textColor="#ff009aa6"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblNombreExpositor" />
+
+
+        <ImageButton
+            android:id="@id/btnCancelar"
+            android:layout_width="100dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="50dp"
+            android:background="#ff009aa6"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:src="@drawable/ic_keyboard_return_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblDescripExpositor" />
+
+        <ImageButton
+            android:id="@id/btnGuardar"
+            android:layout_width="100dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="50dp"
+            android:background="#ff004164"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:src="@drawable/ic_edit_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnAnular"
+            app:layout_constraintStart_toEndOf="@id/btnCancelar"
+            app:layout_constraintTop_toBottomOf="@id/lblDescripExpositor"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageButton
+            android:id="@+id/btnAnular"
+            android:layout_width="100dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="50dp"
+            android:background="#fff44336"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:src="@drawable/ic_delete_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblDescripExpositor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

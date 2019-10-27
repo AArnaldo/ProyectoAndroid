@@ -22,5 +22,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Lista de Charlas</string>
+    <string name="ProfilePhotoPath">ProfilePhotoPath</string>
+
 
 </resources>
