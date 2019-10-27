@@ -1,7 +1,9 @@
 package example.proyectocibertec;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -40,8 +42,18 @@ public class CharlaUbicacionActivity extends AppCompatActivity implements View.O
                 startActivity(intentAnt);
                 break;
             case R.id.btnFinalizarCharlaUbicacion:
-                Intent intentFin = new Intent(this, NuevaCharlaActivity.class);
-                startActivity(intentFin);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                        .setTitle("Registro Charla")
+                        .setMessage("Estas seguro de terminar el registro de la charla?")
+                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int which) {
+                                Intent intentAnt = new Intent(CharlaUbicacionActivity.this, DrawerActivity.class);
+                                startActivity(intentAnt);
+                            }
+                        })
+                        .setNegativeButton("Cancelar",null);
+                builder.show();
                 break;
         }
     }
