@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_charla"
-        android:name="example.proyectocibertec.CharlaListFragment"
+        android:name="example.proyectocibertec.CharlasFragment"
         android:label="@string/menu_charla"
         tools:layout="@layout/fragment_charlas" />
 

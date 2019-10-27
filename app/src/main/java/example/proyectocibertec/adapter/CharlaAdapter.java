@@ -43,13 +43,13 @@ public class CharlaAdapter extends RecyclerView.Adapter<CharlaAdapter.CharlaView
         holder.textViewContent.setText(charla.getDescripcion());
 
         //holder.parent_layout_charla.setTag(Integer.valueOf(position));
-      /*  holder.parent_layout_charla.setOnClickListener(new View.OnClickListener() {
+        holder.parent_layout_charla.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 CharlaDetalleFragment charlaDetalleFragment = new CharlaDetalleFragment();
                 fragment.getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.charlascontainer, charlaDetalleFragment).commit();
-                charlaDetalleFragment.setArguments(null);
+                //charlaDetalleFragment.setArguments();
             }
-        });*/
+        });
     }
 
     @Override
