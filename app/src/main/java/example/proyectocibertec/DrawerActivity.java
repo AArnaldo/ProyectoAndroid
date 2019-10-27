@@ -42,6 +42,12 @@ public class DrawerActivity extends AppCompatActivity
         ProductoListFragment.OnFragmentInteractionListener,
         ProductoCreateFragment.OnFragmentInteractionListener,
         ProductoDetalleFragment.OnFragmentInteractionListener,
+
+        ExpositorFragment.OnFragmentInteractionListener,
+        ExpositorListFragment.OnFragmentInteractionListener,
+        ExpositorCreateFragment.OnFragmentInteractionListener,
+        ExpositorDetalleFragment.OnFragmentInteractionListener,
+
         CharlasFragment.OnFragmentInteractionListener,
         CharlaListFragment.OnFragmentInteractionListener{
 
