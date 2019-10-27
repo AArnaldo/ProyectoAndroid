@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".CharlaUbicacionActivity"></activity>
+        <activity android:name=".UsuarioActivity"></activity>
+        <activity android:name=".CharlaUbicacionActivity" />
         <activity android:name=".CharlaMultimediaActivity" />
         <activity android:name=".CharlaProductoActivity" />
         <activity android:name=".CharlaExpositoresActivity" />
