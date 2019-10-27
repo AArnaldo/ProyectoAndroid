@@ -47,7 +47,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/button_social"
+                android:background="@drawable/button_rounded"
                 android:text="Anterior"
                 android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
