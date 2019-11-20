@@ -40,7 +40,7 @@
                     android:scrollbarStyle="insideInset"
                     android:scrollbars="vertical"
                     android:lines="2"
-                     />
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,34 +97,41 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/til_charlaubicacion_Longitud" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnAnteriorCharlaUbicacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="165dp"
+                android:layout_height="39dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/button_rounded"
-                android:text="Anterior"
-                android:textColor="#FFFFFF"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="50dp"
+                android:background="#ff009aa6"
+                android:maxWidth="50dp"
+                android:maxHeight="50dp"
+                android:src="@drawable/ic_navigate_before_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnFinalizarCharlaUbicacion"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgFotoCharlaUbicacion" />
+                app:layout_constraintTop_toBottomOf="@id/imgFotoCharlaUbicacion" />
 
-
-            <Button
+            <ImageButton
                 android:id="@+id/btnFinalizarCharlaUbicacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="165dp"
+                android:layout_height="39dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/button_rounded"
-                android:text="Finalizar"
-                android:textColor="#FFFFFF"
+                android:layout_marginBottom="50dp"
+                android:background="#ff004164"
+                android:maxWidth="50dp"
+                android:maxHeight="50dp"
+                android:src="@drawable/ic_save_black_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAnteriorCharlaUbicacion" />
+                app:layout_constraintStart_toEndOf="@id/btnAnteriorCharlaUbicacion"
+                app:layout_constraintTop_toBottomOf="@id/imgFotoCharlaUbicacion" />
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

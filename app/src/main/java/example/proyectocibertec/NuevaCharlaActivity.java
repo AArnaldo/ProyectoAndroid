@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
@@ -25,7 +26,7 @@ import example.proyectocibertec.clases.TipoCharla;
 public class NuevaCharlaActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Spinner spTipo;
-    private Button btnFechaInicio,btnFechaFin,btnHoraInicio,btnHoraFin,btnSiguiente;
+    private ImageButton btnFechaInicio,btnFechaFin,btnHoraInicio,btnHoraFin,btnSiguiente, btnAtras;
     private EditText txtFechaInicio,txtFechaFin,txtHoraInicio,txtHoraFin;
 
     private int dia,mes,anio,hora,minuto;
@@ -45,6 +46,7 @@ public class NuevaCharlaActivity extends AppCompatActivity implements View.OnCli
         btnHoraInicio.setOnClickListener(this);
         btnHoraFin.setOnClickListener(this);
         btnSiguiente.setOnClickListener(this);
+        btnAtras.setOnClickListener(this);
     }
 
     private void inicializarControles() {
@@ -54,6 +56,7 @@ public class NuevaCharlaActivity extends AppCompatActivity implements View.OnCli
         btnHoraInicio = findViewById(R.id.btnHoraInicio);
         btnHoraFin = findViewById(R.id.btnHoraFin);
         btnSiguiente = findViewById(R.id.btnSiguiente);
+        btnAtras = findViewById(R.id.btnAtras);
         txtFechaInicio = findViewById(R.id.tiet_newCharla_FechaInicio);
         txtFechaFin = findViewById(R.id.tiet_newCharla_FechaFin);
         txtHoraInicio = findViewById(R.id.tiet_newCharla_HoraInicio);
@@ -179,6 +182,10 @@ public class NuevaCharlaActivity extends AppCompatActivity implements View.OnCli
             case R.id.btnSiguiente:
                 Intent intent = new Intent(this, CharlaExpositoresActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.btnAtras:
+                Intent intentAtras = new Intent(this, DrawerActivity.class);
+                startActivity(intentAtras);
                 break;
         }
     }

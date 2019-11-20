@@ -15,7 +15,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
+            <TextView
+                android:id="@+id/textview_charlaexpositores"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="Seleccionar los expositores de la lista"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <!--<Button
                 android:id="@+id/btnAgregarExpositor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -27,7 +42,7 @@
                 android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerCharlaExpositores"
@@ -38,35 +53,47 @@
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAgregarExpositor" />
+                app:layout_constraintTop_toBottomOf="@+id/textview_charlaexpositores" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnAnteriorCharlaExpositores"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="165dp"
+                android:layout_height="39dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/button_rounded"
-                android:text="Anterior"
-                android:textColor="#FFFFFF"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="50dp"
+                android:background="#ff009aa6"
+                android:maxWidth="50dp"
+                android:maxHeight="50dp"
+                android:src="@drawable/ic_navigate_before_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnSiguienteCharlaExpositores"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerCharlaExpositores" />
+                app:layout_constraintTop_toBottomOf="@id/recyclerCharlaExpositores" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnSiguienteCharlaExpositores"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="165dp"
+                android:layout_height="39dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="8dp"
-                android:text="Siguiente"
-                android:background="@drawable/button_rounded"
-                android:textColor="#FFFFFF"
+                android:layout_marginBottom="50dp"
+                android:background="#ff009aa6"
+                android:maxWidth="50dp"
+                android:maxHeight="50dp"
+                android:src="@drawable/ic_navigate_next_white"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAnteriorCharlaExpositores" />
+                app:layout_constraintStart_toEndOf="@id/btnAnteriorCharlaExpositores"
+                app:layout_constraintTop_toBottomOf="@id/recyclerCharlaExpositores" />
+
+
+
+
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

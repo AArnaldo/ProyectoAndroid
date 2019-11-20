@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class CharlaProductoActivity extends AppCompatActivity implements View.On
     List<Productos> listProducto;
     RecyclerView recyclerViewCharlaProducto;
     CharlaProductoAdapter charlaProductoAdapter;
-    Button btnAnterior, btnSiguiente;
+    ImageButton btnAnterior, btnSiguiente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

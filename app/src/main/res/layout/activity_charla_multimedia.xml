@@ -15,33 +15,35 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnTomarFotoCharlaMultimedia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="165dp"
+                android:layout_height="39dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/button_rounded"
-                android:text="Tomar Foto"
-                android:textColor="#FFFFFF"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:background="#ff004164"
+                android:maxWidth="50dp"
+                android:maxHeight="50dp"
+                android:src="@drawable/ic_photo_camera_black_24dp"
+                app:layout_constraintEnd_toStartOf="@+id/btnSeleccionarFotoCharlaMultimedia"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnSeleccionarFotoCharlaMultimedia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="165dp"
+                android:layout_height="39dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/button_rounded"
-                android:text="Seleccionar Foto"
-                android:textColor="#FFFFFF"
+                android:background="#ff004164"
+                android:maxWidth="50dp"
+                android:maxHeight="50dp"
+                android:src="@drawable/ic_folder_black_24dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnTomarFotoCharlaMultimedia" />
+                app:layout_constraintStart_toEndOf="@id/btnTomarFotoCharlaMultimedia"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imgFotoCharlaMultimedia"
@@ -55,33 +57,41 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnSeleccionarFotoCharlaMultimedia" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnAnteriorCharlaMultimedia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="165dp"
+                android:layout_height="39dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/button_rounded"
-                android:text="Anterior"
-                android:textColor="#FFFFFF"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="50dp"
+                android:background="#ff009aa6"
+                android:maxWidth="50dp"
+                android:maxHeight="50dp"
+                android:src="@drawable/ic_navigate_before_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnSiguienteCharlaMultimedia"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgFotoCharlaMultimedia" />
+                app:layout_constraintTop_toBottomOf="@id/imgFotoCharlaMultimedia" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnSiguienteCharlaMultimedia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="165dp"
+                android:layout_height="39dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="8dp"
-                android:text="Siguiente"
-                android:background="@drawable/button_rounded"
-                android:textColor="#FFFFFF"
+                android:layout_marginBottom="50dp"
+                android:background="#ff009aa6"
+                android:maxWidth="50dp"
+                android:maxHeight="50dp"
+                android:src="@drawable/ic_navigate_next_white"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAnteriorCharlaMultimedia" />
+                app:layout_constraintStart_toEndOf="@id/btnAnteriorCharlaMultimedia"
+                app:layout_constraintTop_toBottomOf="@id/imgFotoCharlaMultimedia" />
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

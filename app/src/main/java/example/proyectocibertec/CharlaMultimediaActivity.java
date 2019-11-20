@@ -25,6 +25,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -43,7 +44,7 @@ public class CharlaMultimediaActivity extends AppCompatActivity implements View.
     private static final int REQUEST_ABRIR_GALERIA = 500;
 
     private ImageView imgFoto;
-    private Button btnAnterior, btnSiguiente, btnTomarFoto, btnAbrirGaleria;
+    private ImageButton btnAnterior, btnSiguiente, btnTomarFoto, btnAbrirGaleria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -69,15 +69,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/til_newCharla_Descrip">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tipo Charla"/>
 
                 <Spinner
                     android:id="@+id/tiet_newCharla_Tipo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="50dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -91,11 +87,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/til_newCharla_TipoCharla">
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnFechaInicio"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="FECHA"></Button>
+                    android:layout_height="55dp"
+                    android:src="@drawable/ic_date_black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -131,12 +127,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/til_newCharla_FechaInicio">
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnHoraInicio"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Hora"
-                    ></Button>
+                    android:layout_height="55dp"
+                    android:src="@drawable/ic_time_black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -172,11 +167,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/til_newCharla_HoraInicio">
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnFechaFin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="FECHA"></Button>
+                    android:layout_height="55dp"
+                    android:src="@drawable/ic_date_black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -212,12 +207,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/til_newCharla_FechaFin">
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnHoraFin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Hora"
-                    ></Button>
+                    android:layout_height="55dp"
+                    android:src="@drawable/ic_time_black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -290,21 +284,43 @@
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/btnSiguiente"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <ImageButton
+                android:id="@+id/btnAtras"
+                android:layout_width="165dp"
+                android:layout_height="39dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/button_rounded"
-                android:text="Siguiente"
-                android:textColor="#FFFFFF"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="50dp"
+                android:background="#ff009aa6"
+                android:maxWidth="50dp"
+                android:maxHeight="50dp"
+                android:src="@drawable/ic_navigate_before_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnSiguiente"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/til_newCharla_Observaciones" />
+
+            <ImageButton
+                android:id="@+id/btnSiguiente"
+                android:layout_width="165dp"
+                android:layout_height="39dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="50dp"
+                android:background="#ff009aa6"
+                android:maxWidth="50dp"
+                android:maxHeight="50dp"
+                android:src="@drawable/ic_navigate_next_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_newCharla_Observaciones" />
+                app:layout_constraintStart_toEndOf="@id/btnAtras"
+                app:layout_constraintTop_toBottomOf="@id/til_newCharla_Observaciones" />
+
+
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
