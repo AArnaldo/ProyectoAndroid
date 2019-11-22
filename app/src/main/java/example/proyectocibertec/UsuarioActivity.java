@@ -10,6 +10,10 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -46,7 +50,7 @@ public class UsuarioActivity extends AppCompatActivity {
 
     ImageButton ibtn_usuario_foto;
     ImageView iv_usuario_foto;
-    ImageView ibtn_usuario_galeria;
+    ImageButton ibtn_usuario_galeria;
 
     private static final int REQUEST_TOMAR_FOTO =100, REQUEST_PERMISO_CAMARA =200, REQUEST_CONFIGURACION = 300;
     private static final int RESQUEST_PERMISO_GALERIA = 400;
@@ -68,6 +72,7 @@ public class UsuarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(getBaseContext(),"Capturar foto", Toast.LENGTH_SHORT).show();
+                scale(ibtn_usuario_foto);
                 abrirCamara();
             }
         });
@@ -75,18 +80,36 @@ public class UsuarioActivity extends AppCompatActivity {
         ibtn_usuario_galeria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                scale(ibtn_usuario_galeria);
                 abrirGaleria();
             }
         });
 
         setProfilePhoto();
+
+        iv_usuario_foto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent transitionIntent = new Intent(UsuarioActivity.this,
+                        UsuarioPicture.class);
+                ActivityOptions options = ActivityOptions
+                        .makeSceneTransitionAnimation(
+                                UsuarioActivity.this,
+                                iv_usuario_foto,
+                                "usuariopicture");
+                startActivity(transitionIntent, options.toBundle());
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //
-
     }
 
     private void abrirCamara()
@@ -323,5 +346,33 @@ public class UsuarioActivity extends AppCompatActivity {
         {
             Toast.makeText(getBaseContext(),"Error en setProfilePhoto(): "+ex.getMessage(),Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void scale(ImageButton objAnimated){
+        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 3f);
+        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 3f);
+        ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(objAnimated,
+                scaleX, scaleY);
+        animator.setRepeatMode(ObjectAnimator.REVERSE);
+        animator.setRepeatCount(1);
+        disableViewDuringAnimation(animator, objAnimated);
+        animator.start();
+    }
+
+    private void disableViewDuringAnimation(ObjectAnimator animator, final View view){
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                view.setEnabled(false);
+            }
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                view.setEnabled(true);
+            }
+            @Override
+            public void onAnimationCancel(Animator animator) { }
+            @Override
+            public void onAnimationRepeat(Animator animator) { }
+        });
     }
 }

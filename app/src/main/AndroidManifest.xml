@@ -3,9 +3,7 @@
     package="example.proyectocibertec">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <!--    Michael-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- Michael -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".UsuarioActivity"></activity>
+        <activity android:name=".UsuarioPicture"></activity>
+        <activity android:name=".UsuarioActivity" />
         <activity android:name=".CharlaUbicacionActivity" />
         <activity android:name=".CharlaMultimediaActivity" />
         <activity android:name=".CharlaProductoActivity" />
