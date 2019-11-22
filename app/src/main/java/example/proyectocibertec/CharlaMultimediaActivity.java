@@ -333,5 +333,21 @@ public class CharlaMultimediaActivity extends AppCompatActivity implements View.
         intent.setData(uri);
         startActivityForResult(intent, REQUEST_CONFIGURACION);
     }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle("Registro Charla")
+                .setMessage("Aún no termina con el registro de la Charla, Desea Salir?")
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        Intent intent = new Intent(CharlaMultimediaActivity.this, DrawerActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancelar",null);
+        builder.show();
+    }
 }
 
