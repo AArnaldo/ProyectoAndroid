@@ -1,9 +1,11 @@
 package example.proyectocibertec;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -76,5 +78,21 @@ public class CharlaExpositoresActivity extends AppCompatActivity implements View
                 startActivity(intentSig);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle("Registro Charla")
+                .setMessage("Aún no termina con el registro de la Charla, Desea Salir?")
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        Intent intent = new Intent(CharlaExpositoresActivity.this, DrawerActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancelar",null);
+        builder.show();
     }
 }
