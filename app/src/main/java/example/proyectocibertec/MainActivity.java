@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         etUsuario = (EditText)findViewById(R.id.txt_Usuario);
         etPassword = (EditText)findViewById(R.id.txt_Password);
+        etUsuario.setText("e.ramirez@gmail.com");
+        etPassword.setText("123456");
     }
 
     public void Ingresar(View view){
@@ -116,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
                     {
                         Intent intent = new Intent(MainActivity.this, DrawerActivity.class);
                         startActivity(intent);
+                        etUsuario.setText("");
+                        etPassword.setText("");
                     }
                     /*for(Post post : posts) {
                         String content = "";
@@ -172,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         scale(btnIngresar,1f);
-        etUsuario.setText("");
-        etPassword.setText("");
+        /*etUsuario.setText("");
+        etPassword.setText("");*/
     }
 }
