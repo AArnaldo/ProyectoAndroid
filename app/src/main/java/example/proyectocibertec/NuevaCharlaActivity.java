@@ -1,13 +1,17 @@
 package example.proyectocibertec;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,7 +31,7 @@ public class NuevaCharlaActivity extends AppCompatActivity implements View.OnCli
 
     private Spinner spTipo;
     private ImageButton btnFechaInicio,btnFechaFin,btnHoraInicio,btnHoraFin,btnSiguiente, btnAtras;
-    private EditText txtFechaInicio,txtFechaFin,txtHoraInicio,txtHoraFin;
+    private EditText txtNombreCharla,txtDescripcionCharla,txtFechaInicio,txtFechaFin,txtHoraInicio,txtHoraFin;
 
     private int dia,mes,anio,hora,minuto;
 
@@ -47,7 +51,11 @@ public class NuevaCharlaActivity extends AppCompatActivity implements View.OnCli
         btnHoraFin.setOnClickListener(this);
         btnSiguiente.setOnClickListener(this);
         btnAtras.setOnClickListener(this);
+
+
     }
+
+
 
     private void inicializarControles() {
         spTipo = findViewById(R.id.tiet_newCharla_Tipo);
@@ -57,6 +65,8 @@ public class NuevaCharlaActivity extends AppCompatActivity implements View.OnCli
         btnHoraFin = findViewById(R.id.btnHoraFin);
         btnSiguiente = findViewById(R.id.btnSiguiente);
         btnAtras = findViewById(R.id.btnAtras);
+        txtNombreCharla = findViewById(R.id.tiet_newCharla_Nombre);
+        txtDescripcionCharla = findViewById(R.id.tiet_newCharla_Descrip);
         txtFechaInicio = findViewById(R.id.tiet_newCharla_FechaInicio);
         txtFechaFin = findViewById(R.id.tiet_newCharla_FechaFin);
         txtHoraInicio = findViewById(R.id.tiet_newCharla_HoraInicio);
@@ -188,5 +198,21 @@ public class NuevaCharlaActivity extends AppCompatActivity implements View.OnCli
                 startActivity(intentAtras);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle("Registro Charla")
+                .setMessage("Aún no termina con el registro de la Charla, Desea Salir?")
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        Intent intent = new Intent(NuevaCharlaActivity.this, DrawerActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancelar",null);
+        builder.show();
     }
 }
