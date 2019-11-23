@@ -8,22 +8,32 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import example.proyectocibertec.adapter.CharlaExpositorAdapter;
-import example.proyectocibertec.clases.Expositor;
+import example.proyectocibertec.clases.CharlaNew;
+import example.proyectocibertec.clases.ExpositorNew;
+import example.proyectocibertec.clases.ClientApiExpositor;
+import example.proyectocibertec.clases.ClientApiProductos;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CharlaExpositoresActivity extends AppCompatActivity implements View.OnClickListener {
 
-    List<Expositor> listExpositor;
-    RecyclerView recyclerViewCharlaExpositor;
-    CharlaExpositorAdapter charlaExpositorAdapter;
-    ImageButton btnAnterior, btnSiguiente;
+    private CharlaNew charla;
+    private List<ExpositorNew> listExpositor;
+    private RecyclerView recyclerViewCharlaExpositor;
+    private CharlaExpositorAdapter charlaExpositorAdapter;
+    private ImageButton btnAnterior, btnSiguiente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,29 +42,68 @@ public class CharlaExpositoresActivity extends AppCompatActivity implements View
         setContentView(R.layout.activity_charla_expositores);
 
         inicializarControles();
-
-        //Llenando la lista de expositores
         llenarListaExpositor();
 
-        recyclerViewCharlaExpositor = findViewById(R.id.recyclerCharlaExpositores);
-        recyclerViewCharlaExpositor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        charlaExpositorAdapter = new CharlaExpositorAdapter(listExpositor);
-        recyclerViewCharlaExpositor.setAdapter(charlaExpositorAdapter);
+
     }
 
     private void inicializarControles() {
         setTitle("Expositores");
-        listExpositor = new ArrayList<Expositor>();
-
+        listExpositor = new ArrayList<ExpositorNew>();
         btnAnterior = findViewById(R.id.btnAnteriorCharlaExpositores);
         btnSiguiente = findViewById(R.id.btnSiguienteCharlaExpositores);
-
         btnAnterior.setOnClickListener(this);
         btnSiguiente.setOnClickListener(this);
+        recyclerViewCharlaExpositor = findViewById(R.id.recyclerCharlaExpositores);
+        recyclerViewCharlaExpositor.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+
+        //obteniendo la data del anterior activity
+        charla = getIntent().getParcelableExtra("objCharla");
     }
 
     private void llenarListaExpositor() {
-        Expositor expositor1 = new Expositor(1,"Juan Perez","Expositor Principal", R.drawable.facebook);
+        //Llamando al servicio
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ClientApiProductos.JSONURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ClientApiExpositor api = retrofit.create(ClientApiExpositor.class);
+        Call<List<ExpositorNew>> call = api.getExpositor(0);
+
+        call.enqueue(new Callback<List<ExpositorNew>>() {
+            @Override
+            public void onResponse(Call<List<ExpositorNew>> call, Response<List<ExpositorNew>> response) {
+                if(response.isSuccessful()){
+
+                    List<ExpositorNew> expositores = (List<ExpositorNew>)response.body();
+                    for(int i = 0; i < expositores.size(); i++){
+                        ExpositorNew expo = new ExpositorNew();
+                        expo.setId(expositores.get(i).getId());
+                        expo.setNombre(expositores.get(i).getNombre());
+                        expo.setDescripcion(expositores.get(i).getDescripcion());
+                        expo.setFoto("https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/React.svg/1200px-React.svg.png");
+
+                        listExpositor.add(expo);
+                    }
+
+                    charlaExpositorAdapter = new CharlaExpositorAdapter(listExpositor);
+                    recyclerViewCharlaExpositor.setAdapter(charlaExpositorAdapter);
+                }else{
+                    //Log.e(TAG,"Error onResponse: " + response.errorBody());
+                    Log.i("CharlaProducto", "response: " + response.body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ExpositorNew>> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(CharlaExpositoresActivity.this, "Ocurrio un error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        /*Expositor expositor1 = new Expositor(1,"Juan Perez","Expositor Principal", R.drawable.facebook);
         Expositor expositor2 = new Expositor(2,"Jose Cueva","Expositor Principal", R.drawable.github);
         Expositor expositor3 = new Expositor(3,"Fernando Gamarra","Expositor Secundario", R.drawable.instagram);
         Expositor expositor4 = new Expositor(4,"Miguel Paredes","Expositor Secundario", R.drawable.youtube);
@@ -63,7 +112,7 @@ public class CharlaExpositoresActivity extends AppCompatActivity implements View
         listExpositor.add(expositor2);
         listExpositor.add(expositor3);
         listExpositor.add(expositor4);
-        listExpositor.add(expositor5);
+        listExpositor.add(expositor5);*/
     }
 
     @Override
@@ -75,6 +124,7 @@ public class CharlaExpositoresActivity extends AppCompatActivity implements View
                 break;
             case R.id.btnSiguienteCharlaExpositores:
                 Intent intentSig = new Intent(CharlaExpositoresActivity.this, CharlaProductoActivity.class);
+                intentSig.putExtra("objCharla", charla);
                 startActivity(intentSig);
                 break;
         }

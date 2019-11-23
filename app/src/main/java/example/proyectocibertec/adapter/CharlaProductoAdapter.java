@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import example.proyectocibertec.R;
@@ -34,6 +36,7 @@ public class CharlaProductoAdapter extends RecyclerView.Adapter<CharlaProductoAd
         holder.textViewNombre.setText(producto.getNombre());
         holder.textViewDescripcion.setText(producto.getDescripcion());
         //holder.imgProducto.setImageResource(producto.getImagenId());
+        Picasso.get().load(producto.getImagen()).into(holder.imgProducto);
     }
 
     @Override

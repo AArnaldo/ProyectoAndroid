@@ -16,6 +16,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
@@ -23,17 +24,22 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import example.proyectocibertec.clases.CharlaNew;
 
 public class CharlaMultimediaActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -43,6 +49,7 @@ public class CharlaMultimediaActivity extends AppCompatActivity implements View.
     private static final int REQUEST_PERMISO_GALERIA = 400;
     private static final int REQUEST_ABRIR_GALERIA = 500;
 
+    private CharlaNew charla;
     private ImageView imgFoto;
     private ImageButton btnAnterior, btnSiguiente, btnTomarFoto, btnAbrirGaleria;
 
@@ -68,6 +75,9 @@ public class CharlaMultimediaActivity extends AppCompatActivity implements View.
         btnSiguiente.setOnClickListener(this);
         btnTomarFoto.setOnClickListener(this);
         btnAbrirGaleria.setOnClickListener(this);
+
+        //obteniendo la data del anterior activity
+        charla = getIntent().getParcelableExtra("objCharla");
     }
 
     @Override
@@ -84,7 +94,22 @@ public class CharlaMultimediaActivity extends AppCompatActivity implements View.
                 startActivity(intentAnt);
                 break;
             case R.id.btnSiguienteCharlaMultimedia:
+                if(imgFoto.getDrawable() == null){
+                    Toast.makeText(this, "Debe seleccionar una imagen a la Charla", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                //Transformando la imagen
+                BitmapDrawable drawable = (BitmapDrawable) imgFoto.getDrawable();
+                Bitmap bitmap = drawable.getBitmap();
+                ByteArrayOutputStream baos = new  ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
+                byte[] b=baos.toByteArray();
+
                 Intent intentSig = new Intent(this, CharlaUbicacionActivity.class);
+                intentSig.putExtra("objCharla", charla);
+                intentSig.putExtra("bitmap", b);
+
                 startActivity(intentSig);
                 break;
         }
