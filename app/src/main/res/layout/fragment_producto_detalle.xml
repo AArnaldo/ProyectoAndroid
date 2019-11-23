@@ -60,20 +60,19 @@
             android:layout_height="fill_parent"
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
-            android:layout_marginEnd="5dp"
             android:text="S/."
             android:textColor="#fff44336"
             android:textSize="18dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/lblCosto"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lblDescProducto" />
 
 
         <TextView
             android:id="@+id/lblCosto"
-            android:layout_width="319dp"
+            android:layout_width="0dp"
             android:layout_height="fill_parent"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="30dp"
             android:text="@string/menu_productos"
@@ -81,6 +80,7 @@
             android:textSize="18.0sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lblS"
             app:layout_constraintTop_toBottomOf="@id/lblDescProducto" />
 
         <ImageButton

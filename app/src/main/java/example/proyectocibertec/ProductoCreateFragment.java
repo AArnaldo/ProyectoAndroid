@@ -1,6 +1,7 @@
 package example.proyectocibertec;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
@@ -9,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
@@ -29,6 +31,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,18 +44,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import example.proyectocibertec.adapter.ProductosAdapter;
+import example.proyectocibertec.clases.ClientApiProductos;
+import example.proyectocibertec.clases.Productos;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProductoCreateFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "Productos";
+    public static Context contextOfApplication;
 
     private ImageView imgFoto;
     private ImageButton btnTomarFoto;
@@ -74,6 +92,10 @@ public class ProductoCreateFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    private String foto;
+    private File file;
+    private Uri output;
+    private String url = "";
 
     private OnFragmentInteractionListener mListener;
 
@@ -105,6 +127,7 @@ public class ProductoCreateFragment extends Fragment {
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_producto_create, container, false);
         ID_FRAGMENT = (TextView) vista.findViewById(R.id.ID_FRAGMENT);
+        final String img = getArguments().getString("imgFoto");
         tiet_newProducto_Nombre = (TextInputEditText) vista.findViewById(R.id.tiet_newProducto_Nombre);
         tiet_newProducto_Descrip = (TextInputEditText) vista.findViewById(R.id.tiet_newProducto_Descrip);
         tiet_newProducto_Capacidad = (TextInputEditText) vista.findViewById(R.id.tiet_newProducto_Capacidad);
@@ -115,7 +138,7 @@ public class ProductoCreateFragment extends Fragment {
         tiet_newProducto_Nombre.setText(getArguments().getString("lblNombreProducto"));
         tiet_newProducto_Descrip.setText(getArguments().getString("lblDescProducto"));
         tiet_newProducto_Capacidad.setText(getArguments().getString("lblCosto"));
-        imgFoto.setImageResource(getArguments().getInt("imgFoto"));
+        Picasso.get().load(getArguments().getString("imgFoto")).into(imgFoto);
         btnTomarFoto = (ImageButton) vista.findViewById(R.id.btnTomarFoto);
         btnTomarFoto.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -146,7 +169,7 @@ public class ProductoCreateFragment extends Fragment {
                     data.putString("lblNombreProducto", getArguments().getString("lblNombreProducto"));
                     data.putString("lblDescProducto", getArguments().getString("lblDescProducto"));
                     data.putString("lblCosto", getArguments().getString("lblCosto"));
-                    data.putInt("imgFoto", getArguments().getInt("imgFoto"));
+                    data.putString("imgFoto", img);
                     productoDetalleFragment.setArguments(data);
                 }
             }
@@ -187,11 +210,14 @@ public class ProductoCreateFragment extends Fragment {
         builder.setTitle((CharSequence) "Productos");
         builder.setPositiveButton((CharSequence) "Si", (DialogInterface.OnClickListener) new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                ProductoFragment productoFragment = new ProductoFragment();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.contenedor, productoFragment);
-                fragmentTransaction.commit();
-                Toast.makeText(getActivity(), "Se guardo con exito el producto",Toast.LENGTH_SHORT ).show();
+
+                if (ID_FRAGMENT.getText().equals("1")){
+                    create();
+
+                }else {
+                    update();
+                }
+
             }
         });
         builder.setNegativeButton((CharSequence) "No", (DialogInterface.OnClickListener) new DialogInterface.OnClickListener() {
@@ -200,6 +226,164 @@ public class ProductoCreateFragment extends Fragment {
             }
         });
         builder.create().show();
+    }
+
+
+    private void create(){
+
+        BitmapDrawable drawable = (BitmapDrawable) imgFoto.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+
+        ByteArrayOutputStream baos = new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
+        byte[] b=baos.toByteArray();
+
+
+        String temp = Base64.encodeToString(b, Base64.DEFAULT);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ClientApiProductos.JSONURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ClientApiProductos api = retrofit.create(ClientApiProductos.class);
+
+        Log.e(TAG,"Image " + temp);
+        String nombre = tiet_newProducto_Nombre.getText().toString() + ".jpg";
+        Log.e(TAG,"Image " + nombre);
+        Call<Productos> call = api.subirImagen(1,nombre, 1.20,"a","aaa",temp);
+
+        call.enqueue(new Callback<Productos>() {
+
+            @Override
+            public void onResponse(Call<Productos> call, Response<Productos> response) {
+                if(response.isSuccessful()){
+                    url = response.body().getImagen();
+                    createJSON(url);
+                    Log.e(TAG,"Image " + response.body().getImagen());
+                }else{
+                    Log.e(TAG,"Error onResponse Imagen: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Productos> call, Throwable t) {
+                Log.e(TAG," onResponse: dddddd");
+            }
+        });
+
+
+    }
+
+
+    private void update(){
+
+        BitmapDrawable drawable = (BitmapDrawable) imgFoto.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+
+        ByteArrayOutputStream baos = new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
+        byte[] b=baos.toByteArray();
+
+
+        String temp = Base64.encodeToString(b, Base64.DEFAULT);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ClientApiProductos.JSONURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ClientApiProductos api = retrofit.create(ClientApiProductos.class);
+
+        Log.e(TAG,"Image " + temp);
+        String nombre = tiet_newProducto_Nombre.getText().toString() + ".jpg";
+        Log.e(TAG,"Image " + nombre);
+        Call<Productos> call = api.subirImagen(1,nombre, 1.20,"a","aaa",temp);
+
+        call.enqueue(new Callback<Productos>() {
+
+            @Override
+            public void onResponse(Call<Productos> call, Response<Productos> response) {
+                if(response.isSuccessful()){
+                    url = response.body().getImagen();
+                    updateJSON(url);
+                    Log.e(TAG,"Image " + response.body().getImagen());
+                }else{
+                    Log.e(TAG,"Error onResponse Imagen: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Productos> call, Throwable t) {
+                Log.e(TAG," onResponse: dddddd");
+            }
+        });
+
+
+    }
+
+    private void createJSON(String im){
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ClientApiProductos.JSONURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ClientApiProductos api = retrofit.create(ClientApiProductos.class);
+
+
+        Call<Productos> call = api.insertProducto(0,tiet_newProducto_Nombre.getText().toString(), Double.valueOf(tiet_newProducto_Capacidad.getText().toString()),tiet_newProducto_Descrip.getText().toString(),im);
+
+        call.enqueue(new Callback<Productos>() {
+            @Override
+            public void onResponse(Call<Productos> call, Response<Productos> response) {
+                if(response.isSuccessful()){
+                    ProductoFragment productoFragment = new ProductoFragment();
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.contenedor, productoFragment);
+                    fragmentTransaction.commit();
+                    Toast.makeText(getActivity(), "Se guardo con exito el producto",Toast.LENGTH_SHORT ).show();
+                }else{
+                    Log.e(TAG,"Error onResponse: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Productos> call, Throwable t) {
+                Log.e(TAG," onResponse: dddddd");
+            }
+        });
+    }
+
+    private void updateJSON(String im){
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ClientApiProductos.JSONURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ClientApiProductos api = retrofit.create(ClientApiProductos.class);
+        Call<Productos> call = api.updateProducto(Integer.parseInt(txtId.getText().toString()),tiet_newProducto_Nombre.getText().toString(), Double.valueOf(tiet_newProducto_Capacidad.getText().toString()),tiet_newProducto_Descrip.getText().toString(),im);
+
+        call.enqueue(new Callback<Productos>() {
+            @Override
+            public void onResponse(Call<Productos> call, Response<Productos> response) {
+                if(response.isSuccessful()){
+                    ProductoFragment productoFragment = new ProductoFragment();
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.contenedor, productoFragment);
+                    fragmentTransaction.commit();
+                    Toast.makeText(getActivity(), "Se guardo con exito el producto",Toast.LENGTH_SHORT ).show();
+                }else{
+                    Log.e(TAG,"Error onResponse: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Productos> call, Throwable t) {
+                Log.e(TAG," onResponse: dddddd");
+            }
+        });
     }
 
     private void abrirGaleria(){
@@ -316,6 +500,7 @@ public class ProductoCreateFragment extends Fragment {
             Uri selectedImage = data.getData();
             imgFoto.setImageURI(selectedImage);
         }
+
     }
 
 

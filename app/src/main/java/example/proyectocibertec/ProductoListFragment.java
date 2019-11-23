@@ -1,12 +1,15 @@
 package example.proyectocibertec;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,10 +19,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import example.proyectocibertec.adapter.ExpositorAdapter;
 import example.proyectocibertec.adapter.ProductosAdapter;
+import example.proyectocibertec.clases.ClientApiProductos;
 import example.proyectocibertec.clases.Productos;
-
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -31,6 +41,9 @@ import example.proyectocibertec.clases.Productos;
  * create an instance of this fragment.
  */
 public class ProductoListFragment extends Fragment {
+
+
+    private static final String TAG = "Productos";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -39,9 +52,13 @@ public class ProductoListFragment extends Fragment {
 
     private ProductoFragment.OnFragmentInteractionListener mListener;
 
+    ExpositorAdapter retrofitAdapter;
     RecyclerView recyclerViewPosts;
     ArrayList<Productos> listProductos;
     FloatingActionButton fbadd;
+
+    Fragment _activity;
+
 
     public ProductoListFragment() {
 
@@ -60,27 +77,23 @@ public class ProductoListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        _activity = this;
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
+    ProductosAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista=inflater.inflate(R.layout.fragment_producto_list, container, false);
-
         listProductos=new ArrayList<>();
         recyclerViewPosts= vista.findViewById(R.id.recyclerViewPosts);
         recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        llenarLista();
-
-        ProductosAdapter adapter=new ProductosAdapter(listProductos, this);
-        recyclerViewPosts.setAdapter(adapter);
-
-
+        ObtenerJSON();
         fbadd = vista.findViewById(R.id.fbadd);
         fbadd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,14 +119,59 @@ public class ProductoListFragment extends Fragment {
         return vista;
     }
 
-    private void llenarLista() {
-        listProductos.add(new Productos(1,"ANDROID NIVEL BÁSICO","Obtendrás conocimientos para el diseño, despliegue y desarrollo de aplicaciones para Android utilizando la plataforma Google. También utilizarás los patrones de diseño y buenas prácticas que te permitirán desarrollar aplicaciones sostenibles y con un adecuado rendimiento en el tiempo.", 1600.00, R.drawable.android));
-        listProductos.add(new Productos(2,"ANDROID NIVEL INTERMEDIO","Profundizarás tus conocimientos y habilidades para el desarrollo de aplicaciones móviles Android en dispositivos móviles. Así mismo, aprenderás técnicas avanzadas de optimización que interactuará y consumirá servicios web, manteniendo un rendimiento óptimo de la aplicación.", 1600.00, R.drawable.android));
-        listProductos.add(new Productos(3,"ANDROID NIVEL AVANZADO","Con el curso Android 8.0 Mobile Developer profundizarás tus conocimientos y técnicas de ingeniería de software que ayudarán en el proceso de definir una adecuada arquitectura Android para lograr automatizar las tareas de integración y delivery de la aplicación bajo mejores prácticas.", 1600.00, R.drawable.android));
-        listProductos.add(new Productos(4,"ANGULAR 5.0 FRONT END APPLICATION DEVELOPER","Con angular obtendrás conocimientos para el diseño de la capa de presentación manejando a detalle las especificaciones de las tecnologías de desarrollo Web. Definirás una arquitectura idónea asegurando flexibilidad y robustez de la aplicación sin sacrificar la experiencia del usuario.", 1700.00, R.drawable.angular));
-        listProductos.add(new Productos(5,"REACT JS FRONT END APPLICATION DEVELOPER","Con react js obtendrás conocimientos para diseñar capas de presentación manejando las especificaciones de las tecnologías de desarrollo Web. Aprenderás a definir una arquitectura idónea para asegurar la flexibilidad y robustez de la aplicación sin sacrificar la experiencia del usuario.", 2100.00, R.drawable.react));
-        listProductos.add(new Productos(6,"PHP 7.0 APLICATION DEVELOPER","Con Php 7.0 obtendrás los conocimientos y habilidades necesarias para la programación php y el patrón de arquitectura MVC. Además, aprenderás las tecnologías jQuery, JSON, Ajax, HTML, XML para la gestión de la capa de presentación que garanticen un buen performance de la aplicación", 1500.00, R.drawable.php));
-        listProductos.add(new Productos(7,"VISUAL STUDIO 2017 WEB DEVELOPER","Con visual studio obtendrás conocimientos para el desarrollo de aplicaciones de escritorio con WCF y Web con ASP.NET WebForms y MVC. Aprenderás tecnologías ADO.NET, LINQ, Entity Framework 6.0 (EF) y Dapper para la gestión de la capa de datos que brinde buen performance en la aplicación.", 1500.00, R.drawable.visual));
+    private void ObtenerJSON(){
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ClientApiProductos.JSONURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ClientApiProductos api = retrofit.create(ClientApiProductos.class);
+        Call<List<Productos>> call = api.obtenerProductos(0,"a",.1200,"A","A");;
+
+        call.enqueue(new Callback<List<Productos>>() {
+            @Override
+            public void onResponse(Call<List<Productos>> call, Response<List<Productos>> response) {
+                if(response.isSuccessful()){
+
+                    List<Productos> productos = (List<Productos>)response.body();
+
+
+                    for(int i = 0; i < productos.size(); i++){
+
+                        Productos prod = new Productos();
+
+                        prod.setId(productos.get(i).getId());
+                        prod.setNombre(productos.get(i).getNombre());
+                        prod.setCosto(productos.get(i).getCosto());
+                        prod.setDescripcion(productos.get(i).getDescripcion());
+                        prod.setImagen(productos.get(i).getImagen());
+                        listProductos.add(prod);
+
+                        Log.e(TAG," getId: " + productos.get(i).getId());
+                        Log.e(TAG," getNombre: " + productos.get(i).getNombre());
+                        Log.e(TAG," getCosto: " + productos.get(i).getCosto());
+                        Log.e(TAG," getDescripcion: " + productos.get(i).getDescripcion());
+                        Log.e(TAG," getImagen: " + productos.get(i).getImagen());
+
+                    }
+
+                    adapter = new ProductosAdapter(listProductos, _activity);
+                    recyclerViewPosts.setAdapter(adapter);
+
+
+                }else{
+                    Log.e(TAG,"Error onResponse: " + response.errorBody());
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Productos>> call, Throwable t) {
+                Log.e(TAG," onResponse: dddddd");
+            }
+        });
     }
 
     public void onButtonPressed(Uri uri) {

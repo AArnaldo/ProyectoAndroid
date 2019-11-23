@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import example.proyectocibertec.ProductoDetalleFragment;
@@ -19,6 +21,7 @@ import example.proyectocibertec.clases.Productos;
 
 public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.ProductosViewHolder>{
 
+    private static final String TAG = "Productos";
     Fragment fragment;
     ArrayList<Productos> listProductos;
 
@@ -35,11 +38,12 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
 
     @Override
     public void onBindViewHolder(ProductosViewHolder holder, int position) {
+
         holder.txtNombre.setText(listProductos.get(position).getNombre());
         holder.txtInformacion.setText(listProductos.get(position).getDescripcion());
         holder.txtId.setText(String.valueOf(listProductos.get(position).getId()));
         holder.txtCosto.setText(String.valueOf(listProductos.get(position).getCosto()));
-        holder.foto.setImageResource(listProductos.get(position).getImagenId());
+        Picasso.get().load(listProductos.get(position).getImagen()).into(holder.foto);
         holder.parentLayout.setTag(Integer.valueOf(position));
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -51,7 +55,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
                 data.putString("lblNombreProducto", listProductos.get(x).getNombre());
                 data.putString("lblDescProducto", listProductos.get(x).getDescripcion());
                 data.putString("lblCosto", String.valueOf(listProductos.get(x).getCosto()));
-                data.putInt("imgFoto", listProductos.get(x).getImagenId());
+                data.putString("imgFoto", listProductos.get(x).getImagen());
                 productoDetalleFragment.setArguments(data);
             }
         });
@@ -63,6 +67,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
     }
 
     public class ProductosViewHolder extends RecyclerView.ViewHolder {
+
         ImageView foto;
         RelativeLayout parentLayout;
         TextView txtCosto;

@@ -1,20 +1,38 @@
 package example.proyectocibertec.clases;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Productos {
-
+    @SerializedName("IDProducto")
+    @Expose
     private int id;
+    @SerializedName("Nombre")
+    @Expose
     private String nombre;
-    private String descripcion;
+    @SerializedName("Costo")
+    @Expose
     private double costo;
-    private int imagenId;
+    @SerializedName("Descripcion")
+    @Expose
+    private String descripcion;
+    @SerializedName("Foto")
+    @Expose
+    private String imagen;
+    @SerializedName("base64String")
+    @Expose
+    private String base64String;
 
+    public Productos() {
 
-    public Productos(int id, String nombre, String descripcion, double costo, int imagenId) {
+    }
+    public Productos(int id, String nombre, double costo, String descripcion, String imagen, String base64String) {
         this.id = id;
         this.nombre = nombre;
-        this.descripcion = descripcion;
         this.costo = costo;
-        this.imagenId = imagenId;
+        this.descripcion = descripcion;
+        this.imagen = imagen;
+        this.base64String = base64String;
     }
 
     public int getId() {
@@ -49,11 +67,19 @@ public class Productos {
         this.costo = costo;
     }
 
-    public int getImagenId() {
-        return imagenId;
+    public String getImagen() {
+        return imagen;
     }
 
-    public void setImagenId(int imagenId) {
-        this.imagenId = imagenId;
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getBase64String() {
+        return base64String;
+    }
+
+    public void setBase64String(String base64String) {
+        this.base64String = base64String;
     }
 }

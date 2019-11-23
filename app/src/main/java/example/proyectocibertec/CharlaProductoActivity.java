@@ -34,7 +34,7 @@ public class CharlaProductoActivity extends AppCompatActivity implements View.On
         inicializarControles();
 
         //Llenando la lista de productos
-        llenarListaProductos();
+        //llenarListaProductos();
 
         recyclerViewCharlaProducto = findViewById(R.id.recyclerCharlaProductos);
         recyclerViewCharlaProducto.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
@@ -53,6 +53,7 @@ public class CharlaProductoActivity extends AppCompatActivity implements View.On
         btnSiguiente.setOnClickListener(this);
     }
 
+    /*
     private void llenarListaProductos() {
         Productos producto1 = new Productos(1,"Proyector","Marca EPSON color blanco",250.00,R.drawable.github);
         Productos producto2 = new Productos(2,"Pizzarra","Acrilico en pared",120.00, R.drawable.instagram);
@@ -65,7 +66,7 @@ public class CharlaProductoActivity extends AppCompatActivity implements View.On
         listProducto.add(producto4);
         listProducto.add(producto5);
     }
-
+*/
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

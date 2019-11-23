@@ -33,7 +33,7 @@ public class CharlaProductoAdapter extends RecyclerView.Adapter<CharlaProductoAd
         Productos producto = charlaProductoList.get(position);
         holder.textViewNombre.setText(producto.getNombre());
         holder.textViewDescripcion.setText(producto.getDescripcion());
-        holder.imgProducto.setImageResource(producto.getImagenId());
+        //holder.imgProducto.setImageResource(producto.getImagenId());
     }
 
     @Override
