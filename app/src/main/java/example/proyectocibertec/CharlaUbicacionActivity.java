@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -49,6 +51,7 @@ public class CharlaUbicacionActivity extends AppCompatActivity implements View.O
     private GoogleMap map;
     EditText edtDireccion, edtLatitud, edtLongitud;
     ImageButton btnAnterior, btnFinalizar;
+    ProgressDialog progressDialog;
 
     private static final int REQUEST_PERMISO_LOCATION = 123;
 
@@ -57,6 +60,9 @@ public class CharlaUbicacionActivity extends AppCompatActivity implements View.O
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charla_ubicacion);
+
+        progressDialog = new ProgressDialog(this);
+
 
         inicializarControles();
     }
@@ -115,6 +121,11 @@ public class CharlaUbicacionActivity extends AppCompatActivity implements View.O
                         .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int which) {
+
+                                progressDialog.setTitle("CIBERTEC");
+                                progressDialog.setMessage("Procesando ...");
+                                progressDialog.show();
+
                                 charla.setDireccion(edtDireccion.getText().toString());
                                 charla.setLatitud(edtLatitud.getText().toString());
                                 charla.setLongitud(edtLongitud.getText().toString());
@@ -189,8 +200,10 @@ public class CharlaUbicacionActivity extends AppCompatActivity implements View.O
                             .setTitle("Registro Charla");
                     builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
+                            progressDialog.cancel();
                             Intent intentAnt = new Intent(CharlaUbicacionActivity.this, DrawerActivity.class);
                             startActivity(intentAnt);
+                            finish();
                         }
                     });
                     AlertDialog dialog = builder.create();
@@ -267,4 +280,6 @@ public class CharlaUbicacionActivity extends AppCompatActivity implements View.O
                 .setNegativeButton("Cancelar",null);
         builder.show();
     }
+
+
 }

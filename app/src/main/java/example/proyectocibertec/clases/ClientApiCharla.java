@@ -40,4 +40,7 @@ public interface ClientApiCharla {
             , @Field("Longitud") String longitud
             , @Field("base64String") String base64String);
 
+    @GET("api/Charla/ListAllCharla")
+    Call<List<CharlaNew>> getCharlas();
+
 }

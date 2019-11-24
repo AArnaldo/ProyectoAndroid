@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,7 +21,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.proyectocibertec.adapter.CharlaAdapter;
+import example.proyectocibertec.adapter.CharlaProductoAdapter;
 import example.proyectocibertec.clases.Charla;
+import example.proyectocibertec.clases.CharlaNew;
+import example.proyectocibertec.clases.ClientApiCharla;
+import example.proyectocibertec.clases.ClientApiProductos;
+import example.proyectocibertec.clases.Productos;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -32,7 +44,7 @@ import example.proyectocibertec.clases.Charla;
  */
 public class CharlaListFragment extends Fragment {
 
-    List<Charla> listCharla;
+    List<CharlaNew> listCharla;
     RecyclerView recyclerViewCharla;
     CharlaAdapter charlaAdapter;
     FloatingActionButton newCharla;
@@ -79,7 +91,7 @@ public class CharlaListFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        listCharla = new ArrayList<Charla>();
+        listCharla = new ArrayList<CharlaNew>();
 
     }
 
@@ -94,8 +106,8 @@ public class CharlaListFragment extends Fragment {
 
         recyclerViewCharla =(RecyclerView) vista.findViewById(R.id.rv_charlalist_charlas);
         recyclerViewCharla.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        charlaAdapter = new CharlaAdapter(listCharla,this);
-        recyclerViewCharla.setAdapter(charlaAdapter);
+        //charlaAdapter = new CharlaAdapter(listCharla,this);
+        //recyclerViewCharla.setAdapter(charlaAdapter);
 
         newCharla = (FloatingActionButton) vista.findViewById(R.id.fb_charlalist_add);
         newCharla.setOnClickListener(new View.OnClickListener() {
@@ -149,10 +161,49 @@ public class CharlaListFragment extends Fragment {
     }
 
     private void llenarListaCharla() {
-        listCharla.clear();
+        //Llamando al servicio
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ClientApiCharla.JSONURL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ClientApiCharla api = retrofit.create(ClientApiCharla.class);
+        Call<List<CharlaNew>> call = api.getCharlas();
+
+        call.enqueue(new Callback<List<CharlaNew>>() {
+            @Override
+            public void onResponse(Call<List<CharlaNew>> call, Response<List<CharlaNew>> response) {
+                if(response.isSuccessful()){
+                    List<CharlaNew> charla = (List<CharlaNew>)response.body();
+                    for(int i = 0; i < charla.size(); i++){
+                        CharlaNew item = new CharlaNew();
+                        item.setId(charla.get(i).getId());
+                        item.setNombre(charla.get(i).getNombre());
+                        item.setDescripcion(charla.get(i).getDescripcion());
+                        item.setImagen(charla.get(i).getImagen());
+
+                        listCharla.add(item);
+                    }
+                    charlaAdapter = new CharlaAdapter(listCharla,CharlaListFragment.this);
+                    recyclerViewCharla.setAdapter(charlaAdapter);
+                }else{
+                    //Log.e(TAG,"Error onResponse: " + response.errorBody());
+                    Log.i("CharlaProducto", "response: " + response.body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CharlaNew>> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(getActivity(), "Ocurrio un error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        /*listCharla.clear();
         Charla charla1 = new Charla("Charla 1","Descripcion 1");
         Charla charla2 = new Charla("Charla 2","Descripcion 2");
         listCharla.add(charla1);
-        listCharla.add(charla2);
+        listCharla.add(charla2);*/
     }
 }
