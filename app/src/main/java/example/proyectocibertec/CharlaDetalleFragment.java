@@ -1,6 +1,7 @@
 package example.proyectocibertec;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,6 +10,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -29,6 +35,15 @@ public class CharlaDetalleFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private TextView lblIdCharla;
+    private TextView lblNombreCharla;
+    private TextView lblDescCharla;
+    private TextView lblDireccionCharla;
+    private TextView lblLatitudCharla;
+    private TextView lblLongitudCharla;
+    private TextView lblObservacionCharla;
+    private ImageView ivCharlaDetFoto;
+    private ImageButton ibCharlaDetLocation;
     private OnFragmentInteractionListener mListener;
 
     public CharlaDetalleFragment() {
@@ -66,7 +81,38 @@ public class CharlaDetalleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_charla_detalle, container, false);
+        View vista =  inflater.inflate(R.layout.fragment_charla_detalle, container, false);
+
+        //this.lblIdCharla = vista.findViewById(R.id.lblI);
+        this.lblNombreCharla = vista.findViewById(R.id.lblNombreCharla);
+        this.lblDescCharla= vista.findViewById(R.id.lblDescCharla);
+        this.lblDireccionCharla= vista.findViewById(R.id.lblDireccionCharla);
+        this.lblLatitudCharla= vista.findViewById(R.id.lblLatitudCharla);
+        this.lblLongitudCharla= vista.findViewById(R.id.lblLongitudCharla);
+        this.lblObservacionCharla= vista.findViewById(R.id.lblObservacionCharla);
+        this.ivCharlaDetFoto= vista.findViewById(R.id.ivCharlaDetFoto);
+        this.ibCharlaDetLocation = vista.findViewById(R.id.ibCharlaDetLocation);
+
+        this.lblNombreCharla.setText(getArguments().getString("lblNombreCharla"));
+        this.lblDescCharla.setText(getArguments().getString("lblDescCharla"));
+        this.lblDireccionCharla.setText(getArguments().getString("lblDireccionCharla"));
+        this.lblLatitudCharla.setText(getArguments().getString("lblLatitudCharla"));
+        this.lblLongitudCharla.setText(getArguments().getString("lblLongitudCharla"));
+        this.lblObservacionCharla.setText(getArguments().getString("lblObservacionCharla"));
+
+        Picasso.get().load(getArguments().getString("imgFotoCharla")).into(this.ivCharlaDetFoto);
+
+        ibCharlaDetLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://www.latlong.net/c/?lat="+lblLatitudCharla.getText().toString()+"&long="+lblLongitudCharla.getText().toString();
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+        return vista;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -107,4 +153,7 @@ public class CharlaDetalleFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
 }

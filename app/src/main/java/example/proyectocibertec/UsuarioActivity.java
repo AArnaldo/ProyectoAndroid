@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -31,9 +32,16 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.renderscript.ScriptGroup;
+import android.text.InputType;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -46,16 +54,34 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import example.proyectocibertec.clases.ClientApi;
+import example.proyectocibertec.clases.ClientApiProductos;
+import example.proyectocibertec.clases.Productos;
+import example.proyectocibertec.clases.Usuario;
+import example.proyectocibertec.clases.UsuarioEdit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class UsuarioActivity extends AppCompatActivity {
 
     ImageButton ibtn_usuario_foto;
     ImageView iv_usuario_foto;
     ImageButton ibtn_usuario_galeria;
+    private UsuarioEdit usuarioEdit;
 
     private static final int REQUEST_TOMAR_FOTO =100, REQUEST_PERMISO_CAMARA =200, REQUEST_CONFIGURACION = 300;
     private static final int RESQUEST_PERMISO_GALERIA = 400;
     private static final int RESQUEST_ABRIR_GALERIA = 500;
 
+    private UsuarioEdit usuario;
+    private TextView tvUsuario_Nombre;
+    private TextView tvUsuario_Correo;
+    private TextView tvUsuario_Telefono;
+    private TextView tvUsuario_Direccion;
+    private ImageButton btnGrabarUsuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -67,6 +93,14 @@ public class UsuarioActivity extends AppCompatActivity {
         ibtn_usuario_foto = findViewById(R.id.ibtn_usuario_foto);
         iv_usuario_foto = findViewById(R.id.iv_usuario_foto);
         ibtn_usuario_galeria = findViewById(R.id.ibtn_usuario_galeria);
+        tvUsuario_Nombre = findViewById(R.id.tvUsuario_Nombre );
+        tvUsuario_Correo = findViewById(R.id.tvUsuario_Correo  );
+        tvUsuario_Telefono = findViewById(R.id.tvUsuario_Telefono);
+        tvUsuario_Direccion = findViewById(R.id.tvUsuario_Direccion);
+        //btnEditUsuario = findViewById(R.id.btnEditUsuario);
+        btnGrabarUsuario= findViewById(R.id.btnGrabarUsuario);
+        usuario = (UsuarioEdit) getIntent().getSerializableExtra("Usuario");
+        setUsuario(usuario);
 
         ibtn_usuario_foto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +118,7 @@ public class UsuarioActivity extends AppCompatActivity {
                 abrirGaleria();
             }
         });
-
+        usuarioEdit = (UsuarioEdit) getIntent().getSerializableExtra("Usuario");
         setProfilePhoto();
 
         iv_usuario_foto.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +126,7 @@ public class UsuarioActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent transitionIntent = new Intent(UsuarioActivity.this,
                         UsuarioPicture.class);
+                transitionIntent.putExtra("Usuario",usuarioEdit);
                 ActivityOptions options = ActivityOptions
                         .makeSceneTransitionAnimation(
                                 UsuarioActivity.this,
@@ -100,6 +135,34 @@ public class UsuarioActivity extends AppCompatActivity {
                 startActivity(transitionIntent, options.toBundle());
             }
         });
+
+        /*btnEditUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tvUsuario_Nombre.setInputType(InputType.TYPE_CLASS_TEXT);
+                tvUsuario_Direccion.setInputType(InputType.TYPE_CLASS_TEXT);
+                tvUsuario_Telefono.setInputType(InputType.TYPE_CLASS_PHONE);
+                tvUsuario_Nombre.requestFocus();
+                btnEditUsuario.setVisibility(View.GONE);
+                btnGrabarUsuario.setVisibility(View.VISIBLE);
+            }
+        });*/
+        btnGrabarUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //btnEditUsuario.setVisibility(View.VISIBLE);
+
+            }
+        });
+    }
+
+    private void setUsuario(UsuarioEdit pUsuario)
+    {
+        tvUsuario_Nombre.setText( pUsuario.getNombres()+ " " + pUsuario.getApellidos());
+        tvUsuario_Correo.setText( pUsuario.getCorreo());
+        tvUsuario_Telefono.setText( pUsuario.getTelefono());
+        tvUsuario_Direccion.setText( pUsuario.getDireccion());
     }
 
     @Override
@@ -332,7 +395,11 @@ public class UsuarioActivity extends AppCompatActivity {
     public void setProfilePhoto() {
         String sPath= "";
         try {
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            Glide.with(getApplicationContext())
+                    .load(usuarioEdit.getFoto())
+                    .apply(new RequestOptions().placeholder(R.drawable.ic_person_black_24dp))
+                    .into(iv_usuario_foto);
+         /*   SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             sPath = sharedPreferences.getString(this.getResources().getString(R.string.ProfilePhotoPath), "");
 
             if (sPath == null || sPath.equals(""))
@@ -340,7 +407,7 @@ public class UsuarioActivity extends AppCompatActivity {
             }
             else {
                 mostrarImagen(sPath);
-            }
+            }*/
 
         }catch (Exception ex)
         {
@@ -375,4 +442,35 @@ public class UsuarioActivity extends AppCompatActivity {
             public void onAnimationRepeat(Animator animator) { }
         });
     }
+
+/*    private void updateJSON(String im){
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://appcharla.azurewebsites.net")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ClientApi api = retrofit.create(ClientApi.class);
+        Call<Productos> call = api.updateUsuario(usuarioEdit.getIDUsuario(),tvUsuario_Nombre.getText().toString(), Double.valueOf(tiet_newProducto_Capacidad.getText().toString()),tiet_newProducto_Descrip.getText().toString(),im);
+
+        call.enqueue(new Callback<Productos>() {
+            @Override
+            public void onResponse(Call<Productos> call, Response<Productos> response) {
+                if(response.isSuccessful()){
+                    ProductoFragment productoFragment = new ProductoFragment();
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.contenedor, productoFragment);
+                    fragmentTransaction.commit();
+                    Toast.makeText(getActivity(), "Se guardo con exito el producto",Toast.LENGTH_SHORT ).show();
+                }else{
+                    Log.e(TAG,"Error onResponse: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Productos> call, Throwable t) {
+                Log.e(TAG," onResponse: dddddd");
+            }
+        });
+    }*/
 }

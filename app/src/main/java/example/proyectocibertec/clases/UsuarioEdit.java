@@ -1,6 +1,8 @@
 package example.proyectocibertec.clases;
 
-public class UsuarioEdit {
+import java.io.Serializable;
+
+public class UsuarioEdit implements Serializable {
 
     private Long IDUsuario;
     private String Nombres;

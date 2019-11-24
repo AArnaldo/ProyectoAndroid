@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     else
                     {
                         Intent intent = new Intent(MainActivity.this, DrawerActivity.class);
+                        intent.putExtra("Usuario",usuarioEdit);
                         startActivity(intent);
                         etUsuario.setText("");
                         etPassword.setText("");

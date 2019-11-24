@@ -7,11 +7,36 @@
     tools:context=".CharlaDetalleFragment">
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/lblCapacidadCharla"
         style="@style/ViewFieldValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="50 personas"
+        app:layout_constraintBottom_toBottomOf="@+id/textView10"
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintTop_toTopOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="67dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="Capacidad"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblDescCharla" />
+
+    <TextView
+        android:id="@+id/lblObservacionCharla"
+        style="@style/ViewFieldValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="50 personas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.968"
         app:layout_constraintStart_toStartOf="@+id/textView22"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
@@ -19,42 +44,39 @@
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Capacidad"
-        app:layout_constraintStart_toStartOf="@+id/textView19"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="Observación"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblLatitudCharla" />
 
     <TextView
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Longitud"
-        app:layout_constraintBottom_toTopOf="@+id/textView20"
-        app:layout_constraintStart_toStartOf="@+id/textView20" />
+        app:layout_constraintBottom_toTopOf="@+id/lblLongitudCharla"
+        app:layout_constraintStart_toStartOf="@+id/lblLongitudCharla" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/lblLongitudCharla"
         style="@style/ViewFieldValue"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="8dp"
+        android:paddingEnd="16dp"
         android:text="-77.028270"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintStart_toEndOf="@+id/lblLatitudCharla"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/lblLatitudCharla"
         style="@style/ViewFieldValue"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="16dp"
+        android:paddingEnd="16dp"
         android:text="-12.1222635"
-        app:layout_constraintEnd_toStartOf="@+id/textView20"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
@@ -63,11 +85,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Latitud"
-        app:layout_constraintStart_toStartOf="@+id/textView17"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+        app:layout_constraintStart_toStartOf="@+id/lblDireccionCharla"
+        app:layout_constraintTop_toBottomOf="@+id/lblDireccionCharla" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/lblDireccionCharla"
         style="@style/ViewFieldValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -82,89 +104,61 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Dirección"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintStart_toStartOf="@+id/lblDescCharla"
+        app:layout_constraintTop_toBottomOf="@+id/ivCharlaDetFoto" />
+
 
     <TextView
-        android:id="@+id/textView15"
-        style="@style/ViewFieldValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="28/10/2019 12:30"
-        app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Fecha de Fin"
-        app:layout_constraintStart_toStartOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Fecha de Inicio"
-        app:layout_constraintStart_toStartOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-    <TextView
-        android:id="@+id/textView13"
-        style="@style/ViewFieldValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="28/10/2019 11:30"
-        app:layout_constraintStart_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-    <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/lblDescCharla"
         style="@style/ViewFieldValue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="Desarrolle aplicaciones visualmente atractivas en poco tiempo con Flutter el nuevo framework de Google"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:text="Descripción"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:text="Nombre de Charla"
+        android:layout_marginEnd="32dp"
+        android:text="Desarrolle aplicaciones visualmente atractivas en poco tiempo con Flutter el nuevo framework de Google"
+        android:transitionName="transDescripCharla"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/lblNombreCharla" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/lblNombreCharla"
         style="@style/ViewFieldValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:text="Desarrollo de Aplicaciones con Flutter"
+        android:textSize="22sp"
+        android:transitionName="transTitulo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivCharlaDetFoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:transitionName="transImagenCharla"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblCapacidadCharla"
+        tools:src="@tools:sample/avatars" />
+
+    <ImageButton
+        android:id="@+id/ibCharlaDetLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="false"
+        android:backgroundTint="#FFFFFF"
+        android:src="@drawable/ic_action_name"
+        app:layout_constraintBottom_toBottomOf="@+id/lblLongitudCharla"
+        app:layout_constraintEnd_toEndOf="@+id/lblDireccionCharla"
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,12 +30,15 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+
+import example.proyectocibertec.clases.UsuarioEdit;
 
 public class DrawerActivity extends AppCompatActivity
         implements ProductoFragment.OnFragmentInteractionListener,
@@ -55,6 +58,8 @@ public class DrawerActivity extends AppCompatActivity
     private AppBarConfiguration mAppBarConfiguration;
 
     private ImageView iv_nav_header_profilepic;
+    private TextView tvUsuario_Nombre_Nav;
+    private UsuarioEdit usuarioEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +94,7 @@ public class DrawerActivity extends AppCompatActivity
 
         View headerview = navigationView.getHeaderView(0);
         iv_nav_header_profilepic = (ImageView) headerview.findViewById(R.id.iv_nav_header_profilepic );
-
+        tvUsuario_Nombre_Nav = (TextView) headerview.findViewById(R.id.tvUsuario_Nombre_Nav );
         /*iv_nav_header_profilepic = findViewById(R.id.iv_nav_header_profilepic );*/
 
         iv_nav_header_profilepic.setOnClickListener(new View.OnClickListener() {
@@ -98,10 +103,13 @@ public class DrawerActivity extends AppCompatActivity
                 //Toast.makeText(getBaseContext(),"Click en profile pic",Toast.LENGTH_SHORT).show();
                 //iv_nav_header_profilepic.setImageResource(R.drawable.angular);
                 Intent intent = new Intent(DrawerActivity.this,UsuarioActivity.class);
+                intent.putExtra("Usuario",usuarioEdit);
                 startActivity(intent);
             }
         });
+        usuarioEdit = (UsuarioEdit) getIntent().getSerializableExtra("Usuario");
         setProfilePhoto();
+        tvUsuario_Nombre_Nav.setText("Usuario: "+usuarioEdit.getCorreo());
     }
 
     @Override
@@ -132,7 +140,11 @@ public class DrawerActivity extends AppCompatActivity
     public void setProfilePhoto() {
         String sPath= "";
         try {
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            Glide.with(getApplicationContext())
+                    .load(usuarioEdit.getFoto())
+                    .apply(new RequestOptions().placeholder(R.drawable.ic_person_black_24dp))
+                    .into(iv_nav_header_profilepic);
+          /*  SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             sPath = sharedPreferences.getString(this.getResources().getString(R.string.ProfilePhotoPath), "");
 
             if (sPath == null || sPath.equals(""))
@@ -140,7 +152,7 @@ public class DrawerActivity extends AppCompatActivity
             }
             else {
                 mostrarImagen(sPath);
-            }
+            }*/
 
         }catch (Exception ex)
         {

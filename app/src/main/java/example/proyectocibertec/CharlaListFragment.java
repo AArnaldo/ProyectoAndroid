@@ -181,7 +181,10 @@ public class CharlaListFragment extends Fragment {
                         item.setNombre(charla.get(i).getNombre());
                         item.setDescripcion(charla.get(i).getDescripcion());
                         item.setImagen(charla.get(i).getImagen());
-
+                        item.setDireccion(charla.get(i).getDireccion());
+                        item.setLatitud(charla.get(i).getLatitud());
+                        item.setLongitud(charla.get(i).getLongitud());
+                        item.setObservaciones(charla.get(i).getObservaciones());
                         listCharla.add(item);
                     }
                     charlaAdapter = new CharlaAdapter(listCharla,CharlaListFragment.this);
