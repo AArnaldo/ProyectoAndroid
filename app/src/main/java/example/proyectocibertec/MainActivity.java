@@ -6,6 +6,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText etUsuario, etPassword;
     private String Link;
 
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         etPassword = (EditText)findViewById(R.id.txt_Password);
         etUsuario.setText("e.ramirez@gmail.com");
         etPassword.setText("123456");
+
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sp_file_mensajes_key),MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
     public void Ingresar(View view){
@@ -116,6 +123,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else
                     {
+                        editor.putString(getResources().getString(R.string.session_campo_correo),usuarioEdit.getCorreo());
+                        editor.apply();
+
                         Intent intent = new Intent(MainActivity.this, DrawerActivity.class);
                         intent.putExtra("Usuario",usuarioEdit);
                         startActivity(intent);

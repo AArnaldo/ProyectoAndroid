@@ -27,5 +27,8 @@
 
     <string name="title_activity_charla_maps">Map</string>
 
+    <string name="sp_file_mensajes_key">sp_file_mensaje_key</string>
+    <string name="session_campo_correo">campo_correo</string>
+
 
 </resources>

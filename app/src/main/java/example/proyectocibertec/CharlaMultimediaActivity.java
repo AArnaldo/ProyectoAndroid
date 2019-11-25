@@ -12,6 +12,7 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -40,6 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import example.proyectocibertec.clases.CharlaNew;
+import example.proyectocibertec.clases.UsuarioEdit;
 
 public class CharlaMultimediaActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,6 +54,8 @@ public class CharlaMultimediaActivity extends AppCompatActivity implements View.
     private CharlaNew charla;
     private ImageView imgFoto;
     private ImageButton btnAnterior, btnSiguiente, btnTomarFoto, btnAbrirGaleria;
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +107,7 @@ public class CharlaMultimediaActivity extends AppCompatActivity implements View.
                 BitmapDrawable drawable = (BitmapDrawable) imgFoto.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
                 ByteArrayOutputStream baos = new  ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
+                bitmap.compress(Bitmap.CompressFormat.JPEG,10, baos);
                 byte[] b=baos.toByteArray();
 
                 Intent intentSig = new Intent(this, CharlaUbicacionActivity.class);
@@ -367,7 +371,14 @@ public class CharlaMultimediaActivity extends AppCompatActivity implements View.
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
+                        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sp_file_mensajes_key),MODE_PRIVATE);
+
+                        //Obtener correo de Session
+                        UsuarioEdit objUsuario = new UsuarioEdit();
+                        objUsuario.setCorreo(sharedPreferences.getString("campo_correo","0"));
+
                         Intent intent = new Intent(CharlaMultimediaActivity.this, DrawerActivity.class);
+                        intent.putExtra("Usuario",objUsuario);
                         startActivity(intent);
                     }
                 })

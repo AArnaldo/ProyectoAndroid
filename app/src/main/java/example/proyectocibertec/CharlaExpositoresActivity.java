@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import example.proyectocibertec.clases.CharlaNew;
 import example.proyectocibertec.clases.ExpositorNew;
 import example.proyectocibertec.clases.ClientApiExpositor;
 import example.proyectocibertec.clases.ClientApiProductos;
+import example.proyectocibertec.clases.UsuarioEdit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,6 +36,7 @@ public class CharlaExpositoresActivity extends AppCompatActivity implements View
     private RecyclerView recyclerViewCharlaExpositor;
     private CharlaExpositorAdapter charlaExpositorAdapter;
     private ImageButton btnAnterior, btnSiguiente;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +141,14 @@ public class CharlaExpositoresActivity extends AppCompatActivity implements View
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
+                        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sp_file_mensajes_key),MODE_PRIVATE);
+
+                        //Obtener correo de Session
+                        UsuarioEdit objUsuario = new UsuarioEdit();
+                        objUsuario.setCorreo(sharedPreferences.getString("campo_correo","0"));
+
                         Intent intent = new Intent(CharlaExpositoresActivity.this, DrawerActivity.class);
+                        intent.putExtra("Usuario",objUsuario);
                         startActivity(intent);
                     }
                 })

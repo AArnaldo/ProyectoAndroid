@@ -9,6 +9,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -35,6 +36,7 @@ import java.util.List;
 
 import example.proyectocibertec.clases.CharlaNew;
 import example.proyectocibertec.clases.TipoCharla;
+import example.proyectocibertec.clases.UsuarioEdit;
 
 public class NuevaCharlaActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,6 +46,7 @@ public class NuevaCharlaActivity extends AppCompatActivity implements View.OnCli
     private TextInputEditText txtNombreCharla,txtDescripcionCharla,txtFechaInicio,txtHoraInicio, txtCapacidad, txtObservaciones;
 
     private int dia,mes,anio,hora,minuto;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,7 +217,14 @@ public class NuevaCharlaActivity extends AppCompatActivity implements View.OnCli
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
+                        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sp_file_mensajes_key),MODE_PRIVATE);
+
+                        //Obtener correo de Session
+                        UsuarioEdit objUsuario = new UsuarioEdit();
+                        objUsuario.setCorreo(sharedPreferences.getString("campo_correo","0"));
+
                         Intent intent = new Intent(NuevaCharlaActivity.this, DrawerActivity.class);
+                        intent.putExtra("Usuario",objUsuario);
                         startActivity(intent);
                     }
                 })
